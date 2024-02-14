@@ -28,7 +28,7 @@ export const Sider = () => {
             collapsed={collapsed}
             collapsedWidth={isMobile ? 0 : 64}
             defaultCollapsed={isMobile}
-            width={isMobile ? 106 : 200}
+            width={isMobile ? 106 : 210}
             style={{
                 zIndex: 99,
                 position: isMobile ? 'fixed' : 'relative',
