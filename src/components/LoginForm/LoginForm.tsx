@@ -1,32 +1,32 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Row } from 'antd';
 
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
-import { useRegistrationMutation } from '../../api/registrationApi';
-import styles from '../LoginForm/LoginForm.module.css';
+import { Link } from 'react-router-dom';
+import { useLoginMutation } from '../../api/loginApi';
+import styles from './LoginForm.module.css';
 
-export const RegistrationForm: React.FC = () => {
-    const [reg] = useRegistrationMutation();
+export const LoginForm: React.FC = () => {
+    const [login] = useLoginMutation();
 
     const onChange = (e: CheckboxChangeEvent) => {
         console.log(`checked = ${e.target.checked}`);
     };
-
     const onFinish = async (values: any) => {
-        console.log(values);
-
-        await reg(values);
+        console.log('Success:', values);
+        const res = await login(values);
+        console.log(res);
     };
+
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
-
     return (
         <Form
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             layout='vertical'
             initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
             className={styles.root}
         >
             <Form.Item
@@ -44,44 +44,35 @@ export const RegistrationForm: React.FC = () => {
             >
                 <Input addonBefore='e-mail:' size='large' placeholder='Email' />
             </Form.Item>
-            Q1w2e3r4
+            12@gmail.com
             <Form.Item
-                name='password'
                 rules={[{ required: true, message: 'Please input your Password!' }]}
-                label=''
+                name='password'
                 validateStatus=''
             >
                 <Input.Password size='large' placeholder='Пароль' />
             </Form.Item>
-            <Form.Item
-                name='confirm'
-                dependencies={['password']}
-                rules={[
-                    {
-                        required: true,
-                        message: 'Повторите пароль',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(_, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(
-                                new Error('The two passwords that you entered do not match!'),
-                            );
-                        },
-                    }),
-                ]}
+            <Row
+                justify='space-between'
+                style={{
+                    marginBottom: '24px',
+                }}
             >
-                <Input.Password size='large' placeholder='Повторите пароль' />
-            </Form.Item>
+                <Form.Item name='remember' valuePropName='checked'>
+                    <Checkbox onChange={onChange}>Запомнить меня</Checkbox>
+                </Form.Item>
+
+                <span className={styles.span}>
+                    <Link to={'#'}>Забыли пароль?</Link>
+                </span>
+            </Row>
             <Form.Item>
-                <Button size='large' htmlType='submit' block type='primary'>
+                <Button size='large' block type='primary' htmlType='submit'>
                     Войти
                 </Button>
             </Form.Item>
             <Form.Item>
-                <Button size='large' block htmlType='submit' icon={<GooglePlusOutlined />}>
+                <Button size='large' htmlType='submit' block icon={<GooglePlusOutlined />}>
                     Войти через Google
                 </Button>
             </Form.Item>

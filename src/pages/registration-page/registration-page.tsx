@@ -4,17 +4,17 @@ import Logo from '../../assets/images/logo.svg';
 
 import { Tabs } from 'antd';
 import styles from './registration-page.module.css';
+import { LoginForm } from '@components/LoginForm';
 import { RegistrationForm } from '@components/RegistrationForm';
-import { AuthForm } from '@components/AuthForm';
 
 export const RegistrationPage: React.FC = () => {
     const tabsItems = [
         {
             label: 'Вход',
             key: 'enter',
-            children: <RegistrationForm />,
+            children: <LoginForm />,
         },
-        { label: 'Регистрация', key: 'auth', children: <AuthForm /> },
+        { label: 'Регистрация', key: 'auth', children: <RegistrationForm /> },
     ];
 
     return (
