@@ -78,22 +78,24 @@ export const Sider = () => {
                     items={[
                         {
                             key: '1',
-                            icon: isMobile ? '' : <CalendarTwoTone twoToneColor='#061178' />,
+                            icon: !isMobile && (
+                                <CalendarTwoTone twoToneColor={['#061178', '#061178']} />
+                            ),
                             label: 'Календарь',
                         },
                         {
                             key: '2',
-                            icon: isMobile ? '' : <HeartFilled style={{ color: '#061178' }} />,
+                            icon: !isMobile && <HeartFilled style={{ color: '#061178' }} />,
                             label: 'Тренировки',
                         },
                         {
                             key: '3',
-                            icon: isMobile ? '' : <TrophyFilled style={{ color: '#061178' }} />,
+                            icon: !isMobile && <TrophyFilled style={{ color: '#061178' }} />,
                             label: 'Достижения ',
                         },
                         {
                             key: '4',
-                            icon: isMobile ? '' : <IdcardOutlined style={{ color: '#061178' }} />,
+                            icon: !isMobile && <IdcardOutlined style={{ color: '#061178' }} />,
                             label: 'Профиль',
                         },
                     ]}

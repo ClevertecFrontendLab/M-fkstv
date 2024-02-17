@@ -1,13 +1,33 @@
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
-import { Button, Layout, Typography } from 'antd';
+import { Button, Layout, List, Typography } from 'antd';
 
 import styles from './Content.module.css';
 
 export const Content = () => {
+    const list = [
+        ' — планировать свои тренировки на календаре,выбирая тип и уровень нагрузки;',
+        ' — отслеживать свои достижения в разделе статистики, сравнивая свои результаты c нормами и рекордами;',
+        ' — создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы о тренировках;',
+        ' — выполнять расписанные тренировки для разных частей тела, следуя подробным инструкциям и советам профессиональных тренеров.',
+    ];
+
     return (
         <Layout.Content className={styles.content}>
             <div className={styles.cards}>
+                {/* <List
+                    bordered={false}
+                    dataSource={list}
+                    header={' C CleverFit ты сможешь'}
+                    renderItem={(item) => <List.Item>{item}</List.Item>}
+                ></List> */}
+
                 <ul>
+                    C CleverFit ты сможешь:{' '}
+                    {list.map((item, index) => {
+                        return <li key={index}>{item}</li>;
+                    })}
+                </ul>
+                {/* <ul>
                     C CleverFit ты сможешь:
                     <li>
                         — планировать свои тренировки на календаре,выбирая тип и уровень нагрузки;
@@ -24,7 +44,7 @@ export const Content = () => {
                         — выполнять расписанные тренировки для разных частей тела, следуя подробным
                         инструкциям и советам профессиональных тренеров.
                     </li>
-                </ul>
+                </ul> */}
             </div>
 
             <div className={styles.cards}>
@@ -51,7 +71,7 @@ export const Content = () => {
 
                     <Button
                         className={styles.button}
-                        icon={<CalendarTwoTone twoToneColor='#2F54EB' />}
+                        icon={<CalendarTwoTone twoToneColor={['#2F54EB', '#2F54EB']} />}
                     >
                         Календарь
                     </Button>

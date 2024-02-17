@@ -1,0 +1,36 @@
+.root {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 1034px;
+    min-height: 100vh;
+}
+
+.root::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url('../../assets/images/Enter_page_light.png') no-repeat center top;
+    filter: blur(4px);
+}
+
+.form {
+    z-index: 1;
+    width: 540px;
+    height: 752px;
+    background-color: #fff;
+    padding-inline: 86px;
+}
+
+.logo {
+    padding-top: 64px;
+    text-align: center;
+    padding-bottom: 46px;
+}
+
+.logo img {
+    width: 310px;
+}
