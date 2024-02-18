@@ -1,26 +1,53 @@
 import { Button, Checkbox, Form, Input, Row } from 'antd';
+import Lottie from 'react-lottie';
 
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../api/loginApi';
+
 import styles from './LoginForm.module.css';
+import { defaultOptions } from '@components/Loader/loader_options';
+
+export interface formValues {
+    email: string;
+    password: string;
+    remember: boolean;
+}
 
 export const LoginForm: React.FC = () => {
-    const [login] = useLoginMutation();
+    const [login, { isSuccess, isError, isLoading }] = useLoginMutation();
+
+    const navigate = useNavigate();
 
     const onChange = (e: CheckboxChangeEvent) => {
         console.log(`checked = ${e.target.checked}`);
     };
-    const onFinish = async (values: any) => {
-        console.log('Success:', values);
-        const res = await login(values);
-        console.log(res);
+    const onFinish = async (values: formValues) => {
+        console.log({ isSuccess, isError, isLoading });
+        const token: string = await login(values).unwrap();
+        values.remember && sessionStorage.setItem('token', token);
+
+        navigate('/main');
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
+    if (isLoading) {
+        return (
+            <div>
+                <Lottie
+                    options={defaultOptions}
+                    height={400}
+                    width={400}
+                    // isStopped={this.state.isStopped}
+                    // isPaused={this.state.isPaused}
+                />
+            </div>
+        );
+    }
     return (
         <Form
             layout='vertical'
@@ -44,7 +71,7 @@ export const LoginForm: React.FC = () => {
             >
                 <Input addonBefore='e-mail:' size='large' placeholder='Email' />
             </Form.Item>
-            12@gmail.com
+            12@gmail.com Q1w2e3r4
             <Form.Item
                 rules={[{ required: true, message: 'Please input your Password!' }]}
                 name='password'

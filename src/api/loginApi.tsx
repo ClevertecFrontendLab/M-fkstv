@@ -1,28 +1,23 @@
+import { formValues } from '@components/LoginForm';
 import { baseURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
+    tagTypes: ['user'],
     endpoints: (builder) => ({
         login: builder.mutation({
-            query: (body) => ({
+            query: (body: formValues) => ({
                 url: 'login',
                 method: 'POST',
                 body,
             }),
 
-            // transformResponse: (response, meta, arg) => console.log(response),
+            transformResponse: (response: string, meta, arg) => response,
 
-            // onQueryStarted: async (api) => {
-            //     console.log(api);
-
-            //     const { data } = await api.queryFulfilled.then((res: any) => res);
-
-            //     console.log(data);
-
-            //     return data;
-            // },
+            transformErrorResponse: (response: { status: string | number }, meta, arg) =>
+                response.status,
         }),
     }),
 });

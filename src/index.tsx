@@ -2,8 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-
-import { store } from '@redux/configure-store';
+import { HistoryRouter } from 'redux-first-history/rr6';
+import { store, history } from '@redux/configure-store';
 import { MainPage, RegistrationPage } from './pages';
 
 import 'normalize.css';
@@ -17,7 +17,7 @@ root.render(
         <Provider store={store}>
             <HashRouter>
                 <Routes>
-                    {/* <Route path='/' element={<MainPage />} /> */}
+                    <Route path='/main' element={<MainPage />} />
                     <Route path='/' element={<RegistrationPage />} />
                 </Routes>
             </HashRouter>

@@ -1,16 +1,11 @@
 import { Button, Form, Input } from 'antd';
 
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useRegistrationMutation } from '../../api/registrationApi';
 import styles from '../LoginForm/LoginForm.module.css';
 
 export const RegistrationForm: React.FC = () => {
     const [reg] = useRegistrationMutation();
-
-    const onChange = (e: CheckboxChangeEvent) => {
-        console.log(`checked = ${e.target.checked}`);
-    };
 
     const onFinish = async (values: any) => {
         console.log(values);

@@ -1,10 +1,6 @@
 .root {
     font-family: Inter, serif;
 }
-.ant-form-item {
-    margin-bottom: 50px !important;
-    color: blueviolet;
-}
 
 .forgot {
     display: flex;
