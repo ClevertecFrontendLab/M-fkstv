@@ -2,14 +2,22 @@ import Logo from '../../assets/images/logo.svg';
 
 import { LoginForm } from '@components/LoginForm';
 import { RegistrationForm } from '@components/RegistrationForm';
-import { Tabs } from 'antd';
+import { Menu, Tabs } from 'antd';
 import styles from './registration-page.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export const RegistrationPage: React.FC = () => {
     const tabsItems = [
-        { label: 'Вход', key: 'enter', children: <LoginForm /> },
+        { label: 'Вход', key: 'login', children: <LoginForm /> },
         { label: 'Регистрация', key: 'auth', children: <RegistrationForm /> },
     ];
+
+    const navigate = useNavigate();
+
+    const onchange = (e: string) => {
+        // e - /auth or /login
+        // navigate(e);
+    };
 
     return (
         <div className={styles.root}>
@@ -17,14 +25,7 @@ export const RegistrationPage: React.FC = () => {
                 <div className={styles.logo}>
                     <img src={Logo} alt='Cleverfit' />
                 </div>
-                <Tabs
-                    onChange={(key) => {
-                        history.pushState(key, `/${key}`);
-                    }}
-                    className={styles.ant_tabs}
-                    size='large'
-                    items={tabsItems}
-                />
+                <Tabs className={styles.tabs} onChange={onchange} size='large' items={tabsItems} />
             </div>
         </div>
     );

@@ -22,7 +22,7 @@ export const store = configureStore({
         [loginAPI.reducerPath]: loginAPI.reducer,
       }),
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(registrationAPI.middleware).concat(loginAPI.middleware)
+    getDefaultMiddleware().concat(registrationAPI.middleware).concat(loginAPI.middleware).concat(routerMiddleware),
 });
 
 // reducer: combineReducers({

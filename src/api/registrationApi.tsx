@@ -12,7 +12,7 @@ export const registrationAPI = createApi({
                 body,
             }),
 
-            // transformResponse: (response, meta, arg) => console.log(response),
+            // transformResponse: (response, meta, arg) => console.log(response, meta),
 
             // onQueryStarted: async (api) => {
             //     console.log(api);

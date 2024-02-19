@@ -1,7 +1,10 @@
-import { formValues } from '@components/LoginForm';
 import { baseURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { formValues } from '../types/formValues';
 
+export interface Itoken {
+    accessToken: string;
+}
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
@@ -14,10 +17,9 @@ export const loginAPI = createApi({
                 body,
             }),
 
-            transformResponse: (response: string, meta, arg) => response,
+            transformResponse: (response: Itoken, meta, arg) => response,
 
-            transformErrorResponse: (response: { status: string | number }, meta, arg) =>
-                response.status,
+            transformErrorResponse: (response: { status: string | number }, meta, arg) => response,
         }),
     }),
 });

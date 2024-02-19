@@ -1,59 +1,37 @@
+import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import Lottie from 'react-lottie';
 
-import { GooglePlusOutlined } from '@ant-design/icons';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../api/loginApi';
+
+import { defaultOptions } from '@components/Loader/loader_options';
+import { Itoken, useLoginMutation } from '../../api/loginApi';
 
 import styles from './LoginForm.module.css';
-import { defaultOptions } from '@components/Loader/loader_options';
-
-export interface formValues {
-    email: string;
-    password: string;
-    remember: boolean;
-}
+import { ErrorElem } from '@components/Error';
+import { formValues } from '../../types/formValues';
 
 export const LoginForm: React.FC = () => {
-    const [login, { isSuccess, isError, isLoading }] = useLoginMutation();
+    const [login, { isSuccess, isError, isLoading, error }] = useLoginMutation();
 
     const navigate = useNavigate();
 
-    const onChange = (e: CheckboxChangeEvent) => {
-        console.log(`checked = ${e.target.checked}`);
-    };
     const onFinish = async (values: formValues) => {
-        console.log({ isSuccess, isError, isLoading });
-        const token: string = await login(values).unwrap();
-        values.remember && sessionStorage.setItem('token', token);
-
-        navigate('/main');
+        const token: Itoken = await login(values).unwrap();
+        values.remember && localStorage.setItem('token', token.accessToken);
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    if (isLoading) {
-        return (
-            <div>
-                <Lottie
-                    options={defaultOptions}
-                    height={400}
-                    width={400}
-                    // isStopped={this.state.isStopped}
-                    // isPaused={this.state.isPaused}
-                />
-            </div>
-        );
+    if (isLoading) return <Lottie options={defaultOptions} height={150} width={150} />;
+    if (isError) {
+        return <ErrorElem status={error?.status} data={error?.data} />;
     }
+    if (isSuccess) navigate('/main');
     return (
         <Form
             layout='vertical'
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             className={styles.root}
         >
             <Form.Item
@@ -86,7 +64,7 @@ export const LoginForm: React.FC = () => {
                 }}
             >
                 <Form.Item name='remember' valuePropName='checked'>
-                    <Checkbox onChange={onChange}>Запомнить меня</Checkbox>
+                    <Checkbox>Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <span className={styles.span}>
