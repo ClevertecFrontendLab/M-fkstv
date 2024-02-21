@@ -2,14 +2,12 @@ import { Button, Form, Input } from 'antd';
 
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { useRegistrationMutation } from '../../api/registrationApi';
-import styles from '../LoginForm/LoginForm.module.css';
+import styles from './LoginForm.module.css';
 
 export const RegistrationForm: React.FC = () => {
     const [reg] = useRegistrationMutation();
 
     const onFinish = async (values: any) => {
-        console.log(values);
-
         await reg(values);
     };
     const onFinishFailed = (errorInfo: any) => {

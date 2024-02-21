@@ -1,6 +1,5 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import Lottie from 'react-lottie';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,9 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { defaultOptions } from '@components/Loader/loader_options';
 import { Itoken, useLoginMutation } from '../../api/loginApi';
 
-import styles from './LoginForm.module.css';
 import { ErrorElem } from '@components/Error';
 import { formValues } from '../../types/formValues';
+import styles from './LoginForm.module.css';
+import { history } from '@redux/configure-store';
 
 export const LoginForm: React.FC = () => {
     const [login, { isSuccess, isError, isLoading, error }] = useLoginMutation();
@@ -19,14 +19,17 @@ export const LoginForm: React.FC = () => {
 
     const onFinish = async (values: formValues) => {
         const token: Itoken = await login(values).unwrap();
+        values.remember && sessionStorage.setItem('token', token.accessToken);
         values.remember && localStorage.setItem('token', token.accessToken);
     };
 
     if (isLoading) return <Lottie options={defaultOptions} height={150} width={150} />;
     if (isError) {
-        return <ErrorElem status={error?.status} data={error?.data} />;
+        history.push('/result/error');
+        <ErrorElem status={error?.status} data={error?.data} />;
     }
     if (isSuccess) navigate('/main');
+
     return (
         <Form
             layout='vertical'
@@ -67,9 +70,9 @@ export const LoginForm: React.FC = () => {
                     <Checkbox>Запомнить меня</Checkbox>
                 </Form.Item>
 
-                <span className={styles.span}>
+                <Button type='link' className={styles.span}>
                     <Link to={'#'}>Забыли пароль?</Link>
-                </span>
+                </Button>
             </Row>
             <Form.Item>
                 <Button size='large' block type='primary' htmlType='submit'>

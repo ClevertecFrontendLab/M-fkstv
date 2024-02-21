@@ -8,10 +8,10 @@ export interface Itoken {
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
-    tagTypes: ['user'],
+
     endpoints: (builder) => ({
-        login: builder.mutation({
-            query: (body: formValues) => ({
+        login: builder.mutation<Itoken, formValues>({
+            query: (body) => ({
                 url: 'login',
                 method: 'POST',
                 body,
@@ -19,9 +19,16 @@ export const loginAPI = createApi({
 
             transformResponse: (response: Itoken, meta, arg) => response,
 
-            transformErrorResponse: (response: { status: string | number }, meta, arg) => response,
+            // transformErrorResponse: (response: { status: string | number }, meta, arg) => response,
+        }),
+        registration: builder.mutation<void, formValues>({
+            query: (body) => ({
+                url: 'registration',
+                method: 'POST',
+                body,
+            }),
         }),
     }),
 });
 
-export const { useLoginMutation } = loginAPI;
+export const { useLoginMutation, useRegistrationMutation } = loginAPI;

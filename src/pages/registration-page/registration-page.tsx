@@ -1,23 +1,18 @@
 import Logo from '../../assets/images/logo.svg';
 
-import { LoginForm } from '@components/LoginForm';
-import { RegistrationForm } from '@components/RegistrationForm';
-import { Menu, Tabs } from 'antd';
+import { LoginForm, RegistrationForm } from '@components/Form';
+import { Tabs, TabsProps } from 'antd';
 import styles from './registration-page.module.css';
-import { useNavigate } from 'react-router-dom';
+import { history } from '@redux/configure-store';
 
 export const RegistrationPage: React.FC = () => {
-    const tabsItems = [
-        { label: 'Вход', key: 'login', children: <LoginForm /> },
-        { label: 'Регистрация', key: 'auth', children: <RegistrationForm /> },
+    // const TabContent: React.FC<{ isRegistration: boolean }> = ({ isRegistration }) => {
+    //     return isRegistration ? <LoginForm /> : <RegistrationForm />;
+    // };
+    const tabsItems: TabsProps['items'] = [
+        { label: 'Вход', key: 'auth', children: <LoginForm /> },
+        { label: 'Регистрация', key: 'auth/registration', children: <RegistrationForm /> },
     ];
-
-    const navigate = useNavigate();
-
-    const onchange = (e: string) => {
-        // e - /auth or /login
-        // navigate(e);
-    };
 
     return (
         <div className={styles.root}>
@@ -25,7 +20,15 @@ export const RegistrationPage: React.FC = () => {
                 <div className={styles.logo}>
                     <img src={Logo} alt='Cleverfit' />
                 </div>
-                <Tabs className={styles.tabs} onChange={onchange} size='large' items={tabsItems} />
+                <Tabs
+                    className={styles.tabs}
+                    onChange={(key) => {
+                        history.push(`/${key}`);
+                    }}
+                    defaultActiveKey='auth'
+                    size='large'
+                    items={tabsItems}
+                />
             </div>
         </div>
     );
