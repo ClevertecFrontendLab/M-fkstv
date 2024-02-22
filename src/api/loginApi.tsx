@@ -5,6 +5,7 @@ import { formValues } from '../types/formValues';
 export interface Itoken {
     accessToken: string;
 }
+
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
@@ -18,10 +19,8 @@ export const loginAPI = createApi({
             }),
 
             transformResponse: (response: Itoken, meta, arg) => response,
-
-            // transformErrorResponse: (response: { status: string | number }, meta, arg) => response,
         }),
-        registration: builder.mutation<void, formValues>({
+        registration: builder.mutation<Itoken, formValues>({
             query: (body) => ({
                 url: 'registration',
                 method: 'POST',

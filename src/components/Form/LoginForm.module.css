@@ -14,6 +14,14 @@
     user-select: none;
 }
 
+.input {
+    margin-bottom: 32px;
+}
+
+.inputPassword {
+    margin-bottom: 46px;
+}
+
 .span {
     color: #2f54eb;
     font-size: 16px;

@@ -1,11 +1,9 @@
-import { ErrorElem } from '@components/Error';
-import { RegistrationForm } from '@components/Form';
 import { MainPage } from '@pages/main-page';
 import { RegistrationPage } from '@pages/registration-page';
 import { history, store } from '@redux/configure-store';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { HistoryRouter } from 'redux-first-history/rr6';
 
 export const App = () => {
@@ -18,13 +16,18 @@ export const App = () => {
             <HistoryRouter history={history}>
                 <Routes>
                     <Route path='/' element={<Outlet />}>
-                        <Route path='auth' element={<RegistrationPage />}>
-                            <Route path='registration' element={<RegistrationPage />} />
-                        </Route>
+                        <Route path='auth' element={<RegistrationPage mode='auth' />} />
+                        <Route
+                            path='auth/registration'
+                            element={<RegistrationPage mode='auth/registration' />}
+                        />
 
                         <Route path='main' element={<MainPage />} />
                         <Route path='result'>
+                            <Route path='success' element={<div>Welocome NEW USER</div>} />
                             <Route path='error' element={<div>Error...</div>} />
+                            <Route path='error/login' element={<div>Error Login...</div>} />
+                            <Route path='error-user-exist' element={<div>Error Login...</div>} />
                         </Route>
                     </Route>
                 </Routes>
