@@ -1,5 +1,6 @@
 import { MainPage } from '@pages/main-page';
 import { RegistrationPage } from '@pages/registration-page';
+import { RegistrationSuccess } from '@pages/registration-success';
 import { history, store } from '@redux/configure-store';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
@@ -24,7 +25,7 @@ export const App = () => {
 
                         <Route path='main' element={<MainPage />} />
                         <Route path='result'>
-                            <Route path='success' element={<div>Welocome NEW USER</div>} />
+                            <Route path='success' element={<RegistrationSuccess />} />
                             <Route path='error' element={<div>Error...</div>} />
                             <Route path='error/login' element={<div>Error Login...</div>} />
                             <Route path='error-user-exist' element={<div>Error Login...</div>} />

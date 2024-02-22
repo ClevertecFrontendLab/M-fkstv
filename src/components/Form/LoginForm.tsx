@@ -29,7 +29,7 @@ export const LoginForm: React.FC = () => {
 
     return (
         <>
-            <Loader />
+            {/* <Loader /> */}
             <Form
                 layout='vertical'
                 initialValues={{ remember: true }}

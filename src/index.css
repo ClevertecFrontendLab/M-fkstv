@@ -36,3 +36,7 @@ body {
 .ant-form-item-explain.ant-form-item-explain-connected {
     font-size: 12px;
 }
+
+.ant-card-head {
+    border-bottom: none;
+}
