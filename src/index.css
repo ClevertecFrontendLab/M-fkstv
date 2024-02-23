@@ -40,3 +40,7 @@ body {
 .ant-card-head {
     border-bottom: none;
 }
+
+.ant-card-head-title {
+    padding: 0;
+}

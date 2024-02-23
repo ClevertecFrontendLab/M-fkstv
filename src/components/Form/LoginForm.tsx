@@ -13,12 +13,14 @@ import styles from './LoginForm.module.css';
 import { Loader } from '@components/Loader';
 
 export const LoginForm: React.FC = () => {
-    const [login, { isSuccess, error }] = useLoginMutation();
+    const [login, { isSuccess, isLoading, error }] = useLoginMutation();
 
     const onFinish = async (values: formValues) => {
         const token: Itoken = await login(values).unwrap();
         values.remember && sessionStorage.setItem('token', token.accessToken);
     };
+
+    if (isLoading) return <Loader />;
 
     if (error) {
         history.push('/result/error');
@@ -29,7 +31,6 @@ export const LoginForm: React.FC = () => {
 
     return (
         <>
-            {/* <Loader /> */}
             <Form
                 layout='vertical'
                 initialValues={{ remember: true }}
