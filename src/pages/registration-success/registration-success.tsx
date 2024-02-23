@@ -1,10 +1,13 @@
 import { Button, Card, Image, Typography } from 'antd';
-import { history } from '@redux/configure-store';
 
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { push } from 'redux-first-history';
 import suggested from '../../assets/images/suggested.svg';
 import styles from './registration-success.module.css';
 
 export const RegistrationSuccess = () => {
+    const dispatch = useAppDispatch();
+
     return (
         <div className={styles.root}>
             <Card
@@ -24,7 +27,7 @@ export const RegistrationSuccess = () => {
                     <br />в приложение, используя свой e-mail и пароль.
                 </Typography.Text>
                 <Button
-                    onClick={() => history.push('/auth')}
+                    onClick={() => dispatch(push('/auth'))}
                     data-test-id='registration-enter-button'
                     size='large'
                     block

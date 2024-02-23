@@ -1,21 +1,26 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { history } from '@redux/configure-store';
+import { Loader } from '@components/Loader';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { Button, Form, Input } from 'antd';
+import { push } from 'redux-first-history';
 import { useRegistrationMutation } from '../../api/registrationApi';
 import { formValues } from '../../types/formValues';
+
 import styles from './LoginForm.module.css';
 
 export const RegistrationForm: React.FC = () => {
-    const [reg] = useRegistrationMutation();
+    const dispatch = useAppDispatch();
+    const [reg, { isLoading, isError, isSuccess, error }] = useRegistrationMutation();
 
     const onFinish = async (values: formValues) => {
-        try {
-            await reg(values);
-            history.push('/result/success');
-        } catch (error) {
-            console.log(error);
-        }
+        await reg(values);
     };
+
+    if (isSuccess) dispatch(push('/result/success'));
+    if (isError) {
+        console.log(error);
+    }
+    if (isLoading) return <Loader />;
 
     return (
         <Form
@@ -44,8 +49,20 @@ export const RegistrationForm: React.FC = () => {
             <Form.Item
                 className={styles.inputPassword}
                 name='password'
-                rules={[{ required: true, message: 'Please input your Password!' }]}
-                validateStatus=''
+                rules={[
+                    { required: true, message: 'Please input your Password!' },
+                    () => ({
+                        validator(_, value) {
+                            const condition = /[A-Z][0-9]/g.test(value);
+                            if (condition) {
+                                return Promise.resolve();
+                            }
+                            return Promise.reject(
+                                new Error('Пароль не менее 8 символов,с заглавной буквой и цифрой'),
+                            );
+                        },
+                    }),
+                ]}
                 help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
             >
                 <Input.Password size='large' placeholder='Пароль' />

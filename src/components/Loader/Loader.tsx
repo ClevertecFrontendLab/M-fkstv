@@ -1,5 +1,4 @@
 import Lottie from 'lottie-react';
-import { defaultOptions } from './loader_options';
 import LoaderData from './Loader.json';
 
 import styles from './Loader.module.css';

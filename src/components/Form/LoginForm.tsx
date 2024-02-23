@@ -1,6 +1,6 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Itoken, useLoginMutation } from '../../api/loginApi';
 
@@ -11,23 +11,31 @@ import { formValues } from '../../types/formValues';
 
 import styles from './LoginForm.module.css';
 import { Loader } from '@components/Loader';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { push } from 'redux-first-history';
 
 export const LoginForm: React.FC = () => {
-    const [login, { isSuccess, isLoading, error }] = useLoginMutation();
+    const [login, { isSuccess, isLoading, isError, error }] = useLoginMutation();
+    const dispatch = useAppDispatch();
+    const location = useLocation();
 
     const onFinish = async (values: formValues) => {
         const token: Itoken = await login(values).unwrap();
-        values.remember && sessionStorage.setItem('token', token.accessToken);
+        dispatch(push(location));
+        values.remember
+            ? localStorage.setItem('token', token.accessToken)
+            : sessionStorage.setItem('token', token.accessToken);
     };
 
     if (isLoading) return <Loader />;
 
-    if (error) {
-        history.push('/result/error');
+    if (isError) {
+        dispatch(push('/result/error'));
+
         <ErrorElem status={JSON.stringify(error)} />;
     }
 
-    if (isSuccess) history.push('/main');
+    if (isSuccess) dispatch(push('/main'));
 
     return (
         <>
@@ -56,7 +64,26 @@ export const LoginForm: React.FC = () => {
                 12@gmail.com Q1w2e3r4
                 <Form.Item
                     data-test-id='login-password'
-                    rules={[{ required: true, message: 'Please input your Password!' }]}
+                    rules={[
+                        {
+                            required: true,
+                            min: 8,
+                            message: 'Введите пароль',
+                        },
+                        () => ({
+                            validator(_, value) {
+                                const condition = /[A-Z][0-9]/g.test(value);
+                                if (condition) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(
+                                    new Error(
+                                        'Пароль не менее 8 символов,с заглавной буквой и цифрой',
+                                    ),
+                                );
+                            },
+                        }),
+                    ]}
                     name='password'
                     help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
                 >

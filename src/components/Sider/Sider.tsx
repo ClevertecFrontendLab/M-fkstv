@@ -1,4 +1,4 @@
-import { Divider, Layout, Menu } from 'antd';
+import { Button, Divider, Layout, Menu } from 'antd';
 import { useState } from 'react';
 
 import {
@@ -17,10 +17,16 @@ import Logo from '../../assets/images/logo.svg';
 import MobileLogo from '../../assets/images/mobileLogo.svg';
 
 import { useIsMObile } from '@hooks/isMobile';
+import { history } from '@redux/configure-store';
 
 export const Sider = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { isMobile } = useIsMObile();
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        history.push('/auth');
+    };
+
     return (
         <Layout.Sider
             trigger={null}
@@ -107,10 +113,10 @@ export const Sider = () => {
                             margin: '0',
                         }}
                     />
-                    <button>
+                    <Button onClick={handleLogOut}>
                         <img src={Exit} alt='Выйти' />
                         {!collapsed && <span>Выход</span>}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </Layout.Sider>
