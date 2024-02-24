@@ -5,7 +5,7 @@ import { push } from 'redux-first-history';
 import suggested from '../../assets/images/suggested.svg';
 import styles from './registration-success.module.css';
 
-export const RegistrationSuccess = () => {
+export const RegistrationSuccess: React.FC = () => {
     const dispatch = useAppDispatch();
 
     return (

@@ -25,12 +25,8 @@ export const LoginForm: React.FC = () => {
             email: values.email,
             password: values.password,
         }).unwrap();
-
         dispatch(push(location));
-
-        // dispatch(setUser({ ...values, token }));
         dispatch(setUser({ email: values.email, password: values.password }));
-
         values.remember
             ? localStorage.setItem('token', token.accessToken)
             : sessionStorage.setItem('token', token.accessToken);
@@ -39,9 +35,7 @@ export const LoginForm: React.FC = () => {
     if (isLoading) return <Loader data-test-id='loader' />;
 
     if (isError) {
-        dispatch(push('/result/error'));
-
-        <ErrorElem status={JSON.stringify(error)} />;
+        dispatch(push('/result/error-login'));
     }
 
     if (isSuccess) dispatch(push('/main'));
@@ -59,12 +53,9 @@ export const LoginForm: React.FC = () => {
                     name='email'
                     rules={[
                         {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
                             required: true,
-                            message: 'Please input your E-mail!',
+                            message: '',
+                            pattern: new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
                         },
                     ]}
                 >
@@ -81,7 +72,8 @@ export const LoginForm: React.FC = () => {
                         },
                         () => ({
                             validator(_, value) {
-                                const condition = /[A-Z0-9]/g.test(value);
+                                const condition =
+                                    /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(value);
                                 if (condition) {
                                     return Promise.resolve();
                                 }

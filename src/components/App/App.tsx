@@ -9,6 +9,7 @@ import { Layout } from '../Layuot/Layout';
 import { ResponseCard } from '../ResponseCard/ResponseCard';
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
+import { LoginError } from '@pages/error-login';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export const App = () => {
                     <Route path='result'>
                         <Route path='success' element={<RegistrationSuccess />} />
                         <Route path='error' element={<div>Error...</div>} />
-                        <Route path='error/login' element={<div>Error Login...</div>} />
+                        <Route path='error-login' element={<LoginError/>} />
                         <Route path='error-user-exist' element={<ResponseCard />} />
                     </Route>
                 </Route>

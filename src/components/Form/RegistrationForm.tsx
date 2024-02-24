@@ -45,6 +45,7 @@ export const RegistrationForm: React.FC = () => {
                     {
                         required: true,
                         message: 'Please input your E-mail!',
+                        pattern: new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
                     },
                 ]}
             >
@@ -59,7 +60,8 @@ export const RegistrationForm: React.FC = () => {
                     { required: true, message: 'Please input your Password!' },
                     () => ({
                         validator(_, value) {
-                            const condition = /[A-Z][0-9]/g.test(value);
+                            const condition =
+                                /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(value);
                             if (condition) {
                                 return Promise.resolve();
                             }

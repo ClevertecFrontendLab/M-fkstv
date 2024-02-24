@@ -1,11 +1,11 @@
+import React from 'react';
 import { Button, Card, Image, Typography } from 'antd';
-
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import triangle from '../../assets/images/triangle.svg';
+import styles from '../registration-success/registration-success.module.css';
 import { push } from 'redux-first-history';
-import Denied from '../../assets/images/Denied.svg';
-import styles from '../../pages/registration-success/registration-success.module.css';
 
-export const ResponseCard = () => {
+export const LoginError: React.FC = () => {
     const dispatch = useAppDispatch();
     return (
         <Card
@@ -16,12 +16,11 @@ export const ResponseCard = () => {
                 width: '100%',
             }}
             className={styles.card}
-            title={<Image src={Denied} />}
+            title={<Image src={triangle} />}
         >
-            <Typography.Text className={styles.title}>Данные не сохранились</Typography.Text>
+            <Typography.Text className={styles.title}>Вход не выполнен</Typography.Text>
             <Typography.Text className={styles.subtitle}>
-                Такой e-mail уже записан в системе. Попробуйте <br />
-                зарегестрироваться по другому e-mail.
+                Что-то пошло не так. Попробуйте ещё раз
             </Typography.Text>
             <Button
                 onClick={() => dispatch(push('/auth'))}
@@ -31,7 +30,7 @@ export const ResponseCard = () => {
                 type='primary'
                 htmlType='submit'
             >
-                Войти
+                Повторить
             </Button>
         </Card>
     );
