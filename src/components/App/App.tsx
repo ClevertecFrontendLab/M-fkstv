@@ -4,7 +4,9 @@ import { RegistrationPage } from '@pages/registration-page';
 import { RegistrationSuccess } from '@pages/registration-success';
 import { history } from '@redux/configure-store';
 import { useEffect } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from '../Layuot/Layout';
+import { ResponseCard } from '../ResponseCard/ResponseCard';
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
 
@@ -18,19 +20,19 @@ export const App = () => {
     return (
         <HistoryRouter history={history}>
             <Routes>
-                <Route path='/' element={<Outlet />}>
+                <Route path='main' element={<MainPage />} />
+                <Route path='/' element={<Layout />}>
                     <Route path='auth' element={<RegistrationPage mode='auth' />} />
                     <Route
                         path='auth/registration'
                         element={<RegistrationPage mode='auth/registration' />}
                     />
 
-                    <Route path='main' element={<MainPage />} />
                     <Route path='result'>
                         <Route path='success' element={<RegistrationSuccess />} />
                         <Route path='error' element={<div>Error...</div>} />
                         <Route path='error/login' element={<div>Error Login...</div>} />
-                        <Route path='error-user-exist' element={<div>Error Login...</div>} />
+                        <Route path='error-user-exist' element={<ResponseCard />} />
                     </Route>
                 </Route>
             </Routes>

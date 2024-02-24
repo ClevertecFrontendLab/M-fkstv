@@ -27,7 +27,7 @@ export const LoginForm: React.FC = () => {
             : sessionStorage.setItem('token', token.accessToken);
     };
 
-    if (isLoading) return <Loader />;
+    if (isLoading) return <Loader data-test-id='loader' />;
 
     if (isError) {
         dispatch(push('/result/error'));
@@ -61,7 +61,7 @@ export const LoginForm: React.FC = () => {
                 >
                     <Input addonBefore='e-mail:' size='large' placeholder='Email' />
                 </Form.Item>
-                12@gmail.com Q1w2e3r4
+
                 <Form.Item
                     data-test-id='login-password'
                     rules={[

@@ -22,22 +22,18 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ mode }) => {
     };
 
     return (
-        <>
-            <div className={styles.root}>
-                <div className={styles.form}>
-                    <div className={styles.logo}>
-                        <img src={Logo} alt='Cleverfit' />
-                    </div>
-
-                    <Tabs
-                        className={styles.tabs}
-                        onChange={handletabChange}
-                        activeKey={mode}
-                        size='large'
-                        items={tabsItems}
-                    />
-                </div>
+        <div className={styles.form}>
+            <div className={styles.logo}>
+                <img src={Logo} alt='Cleverfit' />
             </div>
-        </>
+
+            <Tabs
+                className={styles.tabs}
+                onChange={handletabChange}
+                activeKey={mode}
+                size='large'
+                items={tabsItems}
+            />
+        </div>
     );
 };

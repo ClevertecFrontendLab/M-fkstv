@@ -1,16 +1,20 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Loader } from '@components/Loader';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { Button, Form, Input } from 'antd';
+import { Button, Col, Form, Input, Row } from 'antd';
 import { push } from 'redux-first-history';
 import { useRegistrationMutation } from '../../api/registrationApi';
 import { formValues } from '../../types/formValues';
 
 import styles from './LoginForm.module.css';
 
+interface Ierror {
+    status: string | number;
+}
+
 export const RegistrationForm: React.FC = () => {
     const dispatch = useAppDispatch();
-    const [reg, { isLoading, isError, isSuccess, error }] = useRegistrationMutation();
+    const [reg, { isLoading, isError, isSuccess, error }] = useRegistrationMutation(); //Todo: type of error
 
     const onFinish = async (values: formValues) => {
         await reg(values);
@@ -18,7 +22,7 @@ export const RegistrationForm: React.FC = () => {
 
     if (isSuccess) dispatch(push('/result/success'));
     if (isError) {
-        console.log(error);
+        if (error?.status === 409) dispatch(push('/result/error-user-exist'));
     }
     if (isLoading) return <Loader />;
 
@@ -32,6 +36,7 @@ export const RegistrationForm: React.FC = () => {
             <Form.Item
                 className={styles.input}
                 name='email'
+                data-test-id='registration-email'
                 rules={[
                     {
                         type: 'email',
@@ -49,6 +54,7 @@ export const RegistrationForm: React.FC = () => {
             <Form.Item
                 className={styles.inputPassword}
                 name='password'
+                data-test-id='registration-password'
                 rules={[
                     { required: true, message: 'Please input your Password!' },
                     () => ({
@@ -70,7 +76,11 @@ export const RegistrationForm: React.FC = () => {
 
             <Form.Item
                 name='confirm'
+                data-test-id='registration-confirm-password'
                 dependencies={['password']}
+                style={{
+                    marginBottom: 60,
+                }}
                 rules={[
                     {
                         required: true,
@@ -89,17 +99,29 @@ export const RegistrationForm: React.FC = () => {
                 <Input.Password size='large' placeholder='Повторите пароль' />
             </Form.Item>
 
-            <Form.Item>
-                <Button size='large' htmlType='submit' block type='primary'>
-                    Войти
-                </Button>
-            </Form.Item>
+            <Col className={styles.btnGroup}>
+                <Form.Item
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
+                    <Button
+                        size='large'
+                        htmlType='submit'
+                        block
+                        type='primary'
+                        data-test-id='registration-submit-button'
+                    >
+                        Войти
+                    </Button>
+                </Form.Item>
 
-            <Form.Item>
-                <Button size='large' block htmlType='submit' icon={<GooglePlusOutlined />}>
-                    Регистрация через Google
-                </Button>
-            </Form.Item>
+                <Form.Item>
+                    <Button size='large' block htmlType='submit' icon={<GooglePlusOutlined />}>
+                        Регистрация через Google
+                    </Button>
+                </Form.Item>
+            </Col>
         </Form>
     );
 };

@@ -1,5 +1,6 @@
 .root {
     font-family: Inter, serif;
+    z-index: 10;
 }
 
 .forgot {
@@ -20,6 +21,9 @@
 
 .inputPassword {
     margin-bottom: 46px;
+}
+
+.btnGroup {
 }
 
 .span {

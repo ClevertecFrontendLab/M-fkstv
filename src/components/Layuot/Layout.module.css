@@ -1,0 +1,15 @@
+.root {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.root:before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: url('../../assets/images/Enter_page_light.png') no-repeat center;
+    filter: blur(4px);
+    background-size: cover;
+}
