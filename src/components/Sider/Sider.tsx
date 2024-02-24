@@ -18,12 +18,17 @@ import MobileLogo from '../../assets/images/mobileLogo.svg';
 
 import { useIsMObile } from '@hooks/isMobile';
 import { history } from '@redux/configure-store';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { removeUser } from '@redux/slices/user.slice';
 
 export const Sider = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const dispatch = useAppDispatch();
     const { isMobile } = useIsMObile();
+
     const handleLogOut = () => {
         localStorage.removeItem('token');
+        dispatch(removeUser());
         history.push('/auth');
     };
 

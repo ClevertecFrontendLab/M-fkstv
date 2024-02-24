@@ -1,6 +1,6 @@
 import { baseURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { formValues } from '../types/formValues';
+import { formValues } from '../../types/formValues';
 
 export interface Itoken {
     accessToken: string;

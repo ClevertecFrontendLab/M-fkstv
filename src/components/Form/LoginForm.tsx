@@ -2,26 +2,35 @@ import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Itoken, useLoginMutation } from '../../api/loginApi';
+import { Itoken, useLoginMutation } from '../../redux/api/loginApi';
 
 import { ErrorElem } from '@components/Error';
-import { history } from '@redux/configure-store';
 
 import { formValues } from '../../types/formValues';
 
-import styles from './LoginForm.module.css';
 import { Loader } from '@components/Loader';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { setUser } from '@redux/slices/user.slice';
 import { push } from 'redux-first-history';
+import styles from './LoginForm.module.css';
 
 export const LoginForm: React.FC = () => {
+    const form = Form.useForm();
     const [login, { isSuccess, isLoading, isError, error }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
 
     const onFinish = async (values: formValues) => {
-        const token: Itoken = await login(values).unwrap();
+        const token: Itoken = await login({
+            email: values.email,
+            password: values.password,
+        }).unwrap();
+
         dispatch(push(location));
+
+        // dispatch(setUser({ ...values, token }));
+        dispatch(setUser({ email: values.email, password: values.password }));
+
         values.remember
             ? localStorage.setItem('token', token.accessToken)
             : sessionStorage.setItem('token', token.accessToken);
@@ -72,7 +81,7 @@ export const LoginForm: React.FC = () => {
                         },
                         () => ({
                             validator(_, value) {
-                                const condition = /[A-Z][0-9]/g.test(value);
+                                const condition = /[A-Z0-9]/g.test(value);
                                 if (condition) {
                                     return Promise.resolve();
                                 }

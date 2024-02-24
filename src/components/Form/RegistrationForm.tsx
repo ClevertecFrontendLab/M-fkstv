@@ -1,9 +1,9 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Loader } from '@components/Loader';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Input } from 'antd';
 import { push } from 'redux-first-history';
-import { useRegistrationMutation } from '../../api/registrationApi';
+import { useRegistrationMutation } from '../../redux/api/registrationApi';
 import { formValues } from '../../types/formValues';
 
 import styles from './LoginForm.module.css';
@@ -14,15 +14,15 @@ interface Ierror {
 
 export const RegistrationForm: React.FC = () => {
     const dispatch = useAppDispatch();
-    const [reg, { isLoading, isError, isSuccess, error }] = useRegistrationMutation(); //Todo: type of error
+    const [reg, { isLoading, isSuccess, error }] = useRegistrationMutation(); //Todo: type of error
 
     const onFinish = async (values: formValues) => {
         await reg(values);
     };
 
     if (isSuccess) dispatch(push('/result/success'));
-    if (isError) {
-        if (error?.status === 409) dispatch(push('/result/error-user-exist'));
+    if (error) {
+        if ('status' in error && error?.status === 409) dispatch(push('/result/error-user-exist'));
     }
     if (isLoading) return <Loader />;
 
