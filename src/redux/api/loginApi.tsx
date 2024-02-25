@@ -6,6 +6,16 @@ export interface Itoken {
     accessToken: string;
 }
 
+export interface IEmail {
+    email: string;
+}
+
+export interface IcheckEmailResponse {
+    statusCode?: number;
+    error: string;
+    message: string;
+}
+
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
@@ -25,7 +35,14 @@ export const loginAPI = createApi({
                 body,
             }),
         }),
+        checkEmail: builder.mutation<IcheckEmailResponse, IEmail>({
+            query: (body) => ({
+                url: 'check-email',
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useRegistrationMutation } = loginAPI;
+export const { useLoginMutation, useRegistrationMutation, useCheckEmailMutation } = loginAPI;

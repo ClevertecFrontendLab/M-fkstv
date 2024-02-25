@@ -7,41 +7,14 @@ import { push } from 'redux-first-history';
 
 export const LoginError: React.FC = () => {
     const location = useLocation();
-    console.log(location.state);
+    console.log(location.state); // TODO: use as props
 
     const dispatch = useAppDispatch();
     return (
-        // <Card
-        //     bodyStyle={{
-        //         padding: 0,
-        //         display: 'flex',
-        //         flexDirection: 'column',
-        //         width: '100%',
-        //     }}
-        //     className={styles.card}
-        //     title={<Image src={triangle} />}
-        // >
-        //     <Typography.Text className={styles.title}>Вход не выполнен</Typography.Text>
-        //     <Typography.Text className={styles.subtitle}>
-        //         Что-то пошло не так. Попробуйте ещё раз
-        //     </Typography.Text>
-        //     <Button
-        //         onClick={() => dispatch(push('/auth'))}
-        //         data-test-id='login-retry-button'
-        //         size='large'
-        //         block
-        //         type='primary'
-        //         htmlType='submit'
-        //     >
-        //         Повторить
-        //     </Button>
-        // </Card>
-
         <Result
             style={{
                 backgroundColor: 'white',
                 zIndex: 50,
-
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',

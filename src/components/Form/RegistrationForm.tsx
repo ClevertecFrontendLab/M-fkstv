@@ -36,7 +36,7 @@ export const RegistrationForm: React.FC = () => {
     if (isSuccess) dispatch(push('/result/success'));
     if (error) {
         if ('status' in error && error?.status === 409) {
-            dispatch(push('/result/error-user-exist'));
+            dispatch(push('/result/error-user-exist', error));
         } else {
             dispatch(push('/result/error'));
         }

@@ -4,7 +4,7 @@ import VerificationInput from 'react-verification-input';
 
 export const EmailCheck: React.FC = () => {
     return (
-        <div className={styles.confirm}>
+        <div className={styles.root}>
             {/* {isCorrect && <Result title={title} />}
         {!isCorrect && <Result title={title} status='error' />} */}
             <p className={styles.subtitle}>

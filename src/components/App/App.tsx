@@ -37,6 +37,7 @@ export const App = () => {
                         <Route path='error' element={<ResultError />} />
                         <Route path='error-login' element={<LoginError />} />
                         <Route path='error-user-exist' element={<ResponseCard />} />
+                        <Route path='error-check-email-no-exist' element={<ResponseCard />} />
                     </Route>
                 </Route>
             </Routes>
