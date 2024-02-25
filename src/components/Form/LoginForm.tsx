@@ -4,8 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { Itoken, useLoginMutation } from '../../redux/api/loginApi';
 
-import { ErrorElem } from '@components/Error';
-
 import { formValues } from '../../types/formValues';
 
 import { Loader } from '@components/Loader';
@@ -16,27 +14,46 @@ import styles from './LoginForm.module.css';
 
 export const LoginForm: React.FC = () => {
     const form = Form.useForm();
-    const [login, { isSuccess, isLoading, isError, error }] = useLoginMutation();
+    const [login, { isSuccess, isLoading, error }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
 
     const onFinish = async (values: formValues) => {
+        try {
         const token: Itoken = await login({
             email: values.email,
             password: values.password,
         }).unwrap();
+
         dispatch(push(location));
         dispatch(setUser({ email: values.email, password: values.password }));
         values.remember
             ? localStorage.setItem('token', token.accessToken)
             : sessionStorage.setItem('token', token.accessToken);
+        } catch (error) {
+            // if (typeof error === 'object' && error != null && 'status' in error) {
+            console.log(error);
+
+            dispatch(push('/result/error-login', error));
+            // }
+        }
+
+        // const token: Itoken = await login({
+        //     email: values.email,
+        //     password: values.password,
+        // }).unwrap();
+        // dispatch(push(location));
+        // dispatch(setUser({ email: values.email, password: values.password }));
+        // values.remember
+        //     ? localStorage.setItem('token', token.accessToken)
+        //     : sessionStorage.setItem('token', token.accessToken);
     };
 
     if (isLoading) return <Loader data-test-id='loader' />;
 
-    if (isError) {
-        dispatch(push('/result/error-login'));
-    }
+    // if (error) {
+    //     dispatch(push('/result/error-login', error));
+    // }
 
     if (isSuccess) dispatch(push('/main'));
 
@@ -101,7 +118,7 @@ export const LoginForm: React.FC = () => {
                     </Form.Item>
 
                     <Button type='link' className={styles.span} data-test-id='login-forgot-button'>
-                        <Link to={'#'}>Забыли пароль?</Link>
+                        <Link to={'/auth/check-email'}>Забыли пароль?</Link>
                     </Button>
                 </Row>
                 <Form.Item>

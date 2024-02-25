@@ -24,7 +24,7 @@ export const ResponseCard = () => {
                 зарегестрироваться по другому e-mail.
             </Typography.Text>
             <Button
-                onClick={() => dispatch(push('/auth'))}
+                onClick={() => dispatch(push('/auth/registration'))}
                 data-test-id='registration-back-button'
                 size='large'
                 block

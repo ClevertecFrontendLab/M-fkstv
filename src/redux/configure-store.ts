@@ -8,7 +8,7 @@ import { userReducer } from './slices/user.slice';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
     history: createBrowserHistory(),
-    savePreviousLocations: 30,
+    savePreviousLocations: 1,
 });
 
 

@@ -11,18 +11,6 @@ export const registrationAPI = createApi({
                 method: 'POST',
                 body,
             }),
-
-            // transformResponse: (response, meta, arg) => console.log(response, meta),
-
-            // onQueryStarted: async (api) => {
-            //     console.log(api);
-
-            //     const { data } = await api.queryFulfilled.then((res: any) => res);
-
-            //     console.log(data);
-
-            //     return data;
-            // },
         }),
     }),
 });

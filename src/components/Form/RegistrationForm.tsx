@@ -1,11 +1,12 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Loader } from '@components/Loader';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Button, Col, Form, Input } from 'antd';
 import { push } from 'redux-first-history';
-import { useRegistrationMutation } from '../../redux/api/registrationApi';
+import { useRegistrationMutation } from '../../redux/api/loginApi';
 import { formValues } from '../../types/formValues';
 
+import { useCallback, useEffect } from 'react';
 import styles from './LoginForm.module.css';
 
 interface Ierror {
@@ -14,15 +15,31 @@ interface Ierror {
 
 export const RegistrationForm: React.FC = () => {
     const dispatch = useAppDispatch();
-    const [reg, { isLoading, isSuccess, error }] = useRegistrationMutation(); //Todo: type of error
 
-    const onFinish = async (values: formValues) => {
-        await reg(values);
-    };
+    const [registration, { isLoading, isSuccess, error }] = useRegistrationMutation();
+    const prevLocation = useAppSelector((state) => state.router.previousLocations);
+    const user = useAppSelector((state) => state.user);
+
+    const onFinish = useCallback(
+        async (values: formValues) => {
+            await registration(values);
+        },
+        [registration],
+    );
+
+    useEffect(() => {
+        if (prevLocation && prevLocation[1].location?.pathname === '/result/error') {
+            onFinish(user);
+        }
+    }, [onFinish, prevLocation, user]);
 
     if (isSuccess) dispatch(push('/result/success'));
     if (error) {
-        if ('status' in error && error?.status === 409) dispatch(push('/result/error-user-exist'));
+        if ('status' in error && error?.status === 409) {
+            dispatch(push('/result/error-user-exist'));
+        } else {
+            dispatch(push('/result/error'));
+        }
     }
     if (isLoading) return <Loader />;
 
@@ -55,7 +72,6 @@ export const RegistrationForm: React.FC = () => {
             <Form.Item
                 className={styles.inputPassword}
                 name='password'
-                data-test-id='registration-password'
                 rules={[
                     { required: true, message: 'Please input your Password!' },
                     () => ({
@@ -73,12 +89,16 @@ export const RegistrationForm: React.FC = () => {
                 ]}
                 help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
             >
-                <Input.Password size='large' placeholder='Пароль' />
+                <Input.Password
+                    size='large'
+                    placeholder='Пароль'
+                    data-test-id='registration-password'
+                />
             </Form.Item>
 
             <Form.Item
                 name='confirm'
-                data-test-id='registration-confirm-password'
+                // data-test-id='registration-confirm-password'
                 dependencies={['password']}
                 style={{
                     marginBottom: 60,
@@ -98,7 +118,11 @@ export const RegistrationForm: React.FC = () => {
                     }),
                 ]}
             >
-                <Input.Password size='large' placeholder='Повторите пароль' />
+                <Input.Password
+                    size='large'
+                    placeholder='Повторите пароль'
+                    data-test-id='registration-confirm-password'
+                />
             </Form.Item>
 
             <Col className={styles.btnGroup}>

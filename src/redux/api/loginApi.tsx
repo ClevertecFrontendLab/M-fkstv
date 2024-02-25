@@ -17,13 +17,6 @@ export const loginAPI = createApi({
                 method: 'POST',
                 body,
             }),
-
-            transformResponse: (response: Itoken) => response,
-            async onQueryStarted(args, api) {
-                const token = (await api.queryFulfilled).data.accessToken;
-
-                sessionStorage.setItem('token', token);
-            },
         }),
         registration: builder.mutation<Itoken, formValues>({
             query: (body) => ({
