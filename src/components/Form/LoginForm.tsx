@@ -1,23 +1,17 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import {
-    IEmail,
-    IcheckEmailResponse,
-    Itoken,
-    useCheckEmailMutation,
-    useLoginMutation,
-} from '../../redux/api/loginApi';
+import { Itoken, useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
 
 import { formValues } from '../../types/formValues';
 
 import { Loader } from '@components/Loader';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setUser } from '@redux/slices/user.slice';
+import { useCallback, useEffect, useState } from 'react';
 import { push } from 'redux-first-history';
 import styles from './LoginForm.module.css';
-import { useState } from 'react';
 
 interface Iform {
     email: string;
@@ -31,9 +25,10 @@ export const LoginForm: React.FC = () => {
     const [form] = Form.useForm();
 
     const [login, { isSuccess, isLoading }] = useLoginMutation();
-    const [checkEmail, { error }] = useCheckEmailMutation();
+    const [checkEmail] = useCheckEmailMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
+    const prevLocation = useAppSelector((state) => state.router.previousLocations);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -43,39 +38,49 @@ export const LoginForm: React.FC = () => {
         return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
     };
 
-    const handleCheckEmail = async (email: string) => {
-        try {
-            await checkEmail({ email }).unwrap();
-            dispatch(push('/auth/check-email'));
-        } catch (error) {
-            console.log(error);
+    const handleCheckEmail = useCallback(
+        async (email: string) => {
+            try {
+                await checkEmail({ email }).unwrap();
+                dispatch(push('/auth/confirm-email', email));
+            } catch (error) {
+                if (typeof error === 'object' && error != null && 'status' in error) {
+                    if (error?.status === 404 && error?.data.message === 'Email не найден') {
+                        dispatch(push('/result/error-check-email-no-exist', error));
+                    } else {
+                        dispatch(push('/result/error-check-email', error));
+                    }
+                }
+            }
+        },
+        [checkEmail, dispatch],
+    );
+
+    useEffect(() => {
+        if (prevLocation && prevLocation[1]?.location?.pathname === '/result/error-check-email') {
+            handleCheckEmail(email);
         }
-    };
+    }, [email, handleCheckEmail, prevLocation]);
 
-    if (error) {
-        if ('status' in error && error?.status === 404) {
-            dispatch(push('/result/error-check-email-no-exist', error));
-        }
-    }
+    const onFinish = useCallback(
+        async (values: formValues) => {
+            try {
+                const token: Itoken = await login({
+                    email: values.email,
+                    password: values.password,
+                }).unwrap();
 
-    const onFinish = async (values: formValues) => {
-        try {
-            const token: Itoken = await login({
-                email: values.email,
-                password: values.password,
-            }).unwrap();
-
-            dispatch(push(location));
-            dispatch(setUser({ email: values.email, password: values.password }));
-            values.remember
-                ? localStorage.setItem('token', token.accessToken)
-                : sessionStorage.setItem('token', token.accessToken);
-        } catch (error) {
-            console.log(error);
-
-            dispatch(push('/result/error-login', error));
-        }
-    };
+                dispatch(push(location));
+                dispatch(setUser({ email: values.email, password: values.password }));
+                values.remember
+                    ? localStorage.setItem('token', token.accessToken)
+                    : sessionStorage.setItem('token', token.accessToken);
+            } catch (error) {
+                dispatch(push('/result/error-login', error));
+            }
+        },
+        [dispatch, location, login],
+    );
 
     if (isLoading) return <Loader data-test-id='loader' />;
 
@@ -150,10 +155,9 @@ export const LoginForm: React.FC = () => {
                     <Form.Item shouldUpdate>
                         <Button
                             type='link'
-                            disabled={!validateEmail(email)}
                             className={styles.span}
                             data-test-id='login-forgot-button'
-                            onClick={() => handleCheckEmail(email)}
+                            onClick={() => validateEmail(email) && handleCheckEmail(email)}
                         >
                             Забыли пароль?
                         </Button>

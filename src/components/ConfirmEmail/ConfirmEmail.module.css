@@ -8,13 +8,13 @@
 
     padding: 64px 32px 56px;
     width: 539px;
-    height: 428px;
+
     z-index: 10;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
     background: white;
 }
 
-.confirm :global(.ant-result) {
+.root :global(.ant-result) {
     padding: 0;
     width: 475px;
     /* font-family: var(--font-family); */
@@ -25,11 +25,32 @@
     flex-direction: column;
 }
 
-.confirm :global(.ant-result-title) {
+.root :global(.ant-result-title) {
     font-weight: 500;
     font-size: 2.4rem;
     line-height: 130%;
     font-family: Inter;
     white-space: pre-wrap;
     text-align: center;
+}
+
+.root :global(.ant-result-content) {
+    background-color: #fff;
+}
+
+.character {
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+}
+
+.characterSelected {
+    outline: 2px solid #d9d9d9;
+}
+
+.characterError {
+    border-color: red;
+}
+
+.characterInactive {
+    background-color: #fff;
 }

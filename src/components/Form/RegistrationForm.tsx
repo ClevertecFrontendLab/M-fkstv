@@ -9,10 +9,6 @@ import { formValues } from '../../types/formValues';
 import { useCallback, useEffect } from 'react';
 import styles from './LoginForm.module.css';
 
-interface Ierror {
-    status: string | number;
-}
-
 export const RegistrationForm: React.FC = () => {
     const dispatch = useAppDispatch();
 
@@ -28,7 +24,7 @@ export const RegistrationForm: React.FC = () => {
     );
 
     useEffect(() => {
-        if (prevLocation && prevLocation[1].location?.pathname === '/result/error') {
+        if (prevLocation && prevLocation[1]?.location?.pathname === '/result/error') {
             onFinish(user);
         }
     }, [onFinish, prevLocation, user]);
@@ -98,7 +94,6 @@ export const RegistrationForm: React.FC = () => {
 
             <Form.Item
                 name='confirm'
-                // data-test-id='registration-confirm-password'
                 dependencies={['password']}
                 style={{
                     marginBottom: 60,

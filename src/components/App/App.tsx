@@ -6,12 +6,14 @@ import { history } from '@redux/configure-store';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../Layuot/Layout';
-import { ResponseCard } from '../ResponseCard/ResponseCard';
+import { ErrorResponse } from '../ErrorResponse/ErrorResponse';
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
 import { LoginError } from '@pages/error-login';
 import { ResultError } from '@pages/error-result';
-import { EmailCheck } from '@components/EmailCheck';
+import { ConfirmEmail } from '@components/ConfirmEmail';
+import { ErrorCheckEmail, ErrorUserExist } from '@components/ErrorResponse';
+import { PasswordChange } from '@components/Form';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -26,7 +28,8 @@ export const App = () => {
                 <Route path='main' element={<MainPage />} />
                 <Route path='/' element={<Layout />}>
                     <Route path='auth' element={<RegistrationPage mode='auth' />} />
-                    <Route path='auth/check-email' element={<EmailCheck />} />
+                    <Route path='auth/confirm-email' element={<ConfirmEmail />} />
+                    <Route path='auth/change-password' element={<PasswordChange />} />
                     <Route
                         path='auth/registration'
                         element={<RegistrationPage mode='auth/registration' />}
@@ -36,8 +39,9 @@ export const App = () => {
                         <Route path='success' element={<RegistrationSuccess />} />
                         <Route path='error' element={<ResultError />} />
                         <Route path='error-login' element={<LoginError />} />
-                        <Route path='error-user-exist' element={<ResponseCard />} />
-                        <Route path='error-check-email-no-exist' element={<ResponseCard />} />
+                        <Route path='error-user-exist' element={<ErrorUserExist />} />
+                        <Route path='error-check-email' element={<ErrorCheckEmail />} />
+                        <Route path='error-check-email-no-exist' element={<ErrorResponse />} />
                     </Route>
                 </Route>
             </Routes>

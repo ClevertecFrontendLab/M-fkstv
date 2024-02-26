@@ -10,6 +10,16 @@ export interface IEmail {
     email: string;
 }
 
+export interface IConfirmEmail {
+    email: string;
+    code: string;
+}
+
+export interface IConfirmEmailResponse {
+    email: string;
+    message: string;
+}
+
 export interface IcheckEmailResponse {
     statusCode?: number;
     error: string;
@@ -42,7 +52,29 @@ export const loginAPI = createApi({
                 body,
             }),
         }),
+
+        confirmEmail: builder.mutation<IConfirmEmailResponse, IConfirmEmail>({
+            query: (body) => ({
+                url: 'confirm-email',
+                method: 'POST',
+                body,
+            }),
+        }),
+        changePassword: builder.mutation<IConfirmEmailResponse, IConfirmEmail>({
+            query: (body) => ({
+                url: 'change-password',
+                method: 'POST',
+                credentials: 'include',
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useRegistrationMutation, useCheckEmailMutation } = loginAPI;
+export const {
+    useLoginMutation,
+    useRegistrationMutation,
+    useCheckEmailMutation,
+    useConfirmEmailMutation,
+    useChangePasswordMutation,
+} = loginAPI;
