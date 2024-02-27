@@ -1,3 +1,5 @@
-export { ErrorResponse } from './ErrorResponse';
-export { ErrorCheckEmail } from './ErrorCheckEmail';
-export { ErrorUserExist } from './ErrorUserExist';
+
+export * from './ErrorPasswordChange'
+export * from './ErrorUserExist'
+export * from './ErrorResponse'
+export * from './ErrorCheckEmail'

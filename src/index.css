@@ -45,3 +45,7 @@ body {
 .ant-card-head-title {
     padding: 0;
 }
+
+.ant-btn-primary {
+    background: #2f54eb;
+}

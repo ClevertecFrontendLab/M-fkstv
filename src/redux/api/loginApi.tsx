@@ -1,30 +1,15 @@
 import { baseURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { formValues } from '../../types/formValues';
-
-export interface Itoken {
-    accessToken: string;
-}
-
-export interface IEmail {
-    email: string;
-}
-
-export interface IConfirmEmail {
-    email: string;
-    code: string;
-}
-
-export interface IConfirmEmailResponse {
-    email: string;
-    message: string;
-}
-
-export interface IcheckEmailResponse {
-    statusCode?: number;
-    error: string;
-    message: string;
-}
+import {
+    IChangePassword,
+    IChangePasswordResponse,
+    IConfirmEmail,
+    IConfirmEmailResponse,
+    IEmail,
+    IcheckEmailResponse,
+    Itoken,
+    formValues,
+} from '../../types/types';
 
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
@@ -58,9 +43,10 @@ export const loginAPI = createApi({
                 url: 'confirm-email',
                 method: 'POST',
                 body,
+                credentials: 'include',
             }),
         }),
-        changePassword: builder.mutation<IConfirmEmailResponse, IConfirmEmail>({
+        changePassword: builder.mutation<IChangePasswordResponse, IChangePassword>({
             query: (body) => ({
                 url: 'change-password',
                 method: 'POST',

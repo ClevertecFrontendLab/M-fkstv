@@ -1,4 +1,4 @@
-import { Modal, Tabs, TabsProps } from 'antd';
+import { Tabs, TabsProps } from 'antd';
 
 import { history } from '@redux/configure-store';
 

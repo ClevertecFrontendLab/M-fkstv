@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Button, Col, Form, Input } from 'antd';
 import { push } from 'redux-first-history';
 import { useRegistrationMutation } from '../../redux/api/loginApi';
-import { formValues } from '../../types/formValues';
+import { formValues } from '../../types/types';
 
 import { useCallback, useEffect } from 'react';
 import styles from './LoginForm.module.css';
@@ -53,16 +53,13 @@ export const RegistrationForm: React.FC = () => {
                 rules={[
                     {
                         type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
                         required: true,
-                        message: 'Please input your E-mail!',
+                        message: '',
                         pattern: new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
                     },
                 ]}
             >
-                <Input addonBefore='e-mail:' size='large' />
+                <Input addonBefore={'e-mail:'} size='large' />
             </Form.Item>
 
             <Form.Item
@@ -101,7 +98,7 @@ export const RegistrationForm: React.FC = () => {
                 rules={[
                     {
                         required: true,
-                        message: 'Повторите пароль',
+                        message: '',
                     },
                     ({ getFieldValue }) => ({
                         validator(_, value) {

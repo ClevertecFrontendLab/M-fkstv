@@ -1,24 +1,19 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { push } from 'redux-first-history';
 
-import { Itoken, useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
-
-import { formValues } from '../../types/formValues';
-
-import { Loader } from '@components/Loader';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setUser } from '@redux/slices/user.slice';
-import { useCallback, useEffect, useState } from 'react';
-import { push } from 'redux-first-history';
-import styles from './LoginForm.module.css';
+import { Itoken, useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
 
-interface Iform {
-    email: string;
-    password: string;
-    confirm: string;
-    remember: boolean;
-}
+import { Loader } from '@components/Loader';
+
+import { isFetchBaseQueryError } from '../../types/errorTypes';
+import { formValues } from '../../types/types';
+
+import styles from './LoginForm.module.css';
 
 export const LoginForm: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -44,12 +39,10 @@ export const LoginForm: React.FC = () => {
                 await checkEmail({ email }).unwrap();
                 dispatch(push('/auth/confirm-email', email));
             } catch (error) {
-                if (typeof error === 'object' && error != null && 'status' in error) {
-                    if (error?.status === 404 && error?.data.message === 'Email не найден') {
-                        dispatch(push('/result/error-check-email-no-exist', error));
-                    } else {
-                        dispatch(push('/result/error-check-email', error));
-                    }
+                if (isFetchBaseQueryError(error) && error.data?.message === 'Email не найден') {
+                    dispatch(push('/result/error-check-email-no-exist', error));
+                } else {
+                    dispatch(push('/result/error-check-email', error));
                 }
             }
         },
@@ -76,7 +69,7 @@ export const LoginForm: React.FC = () => {
                     ? localStorage.setItem('token', token.accessToken)
                     : sessionStorage.setItem('token', token.accessToken);
             } catch (error) {
-                dispatch(push('/result/error-login', error));
+                if (isFetchBaseQueryError(error)) dispatch(push('/result/error-login', error));
             }
         },
         [dispatch, location, login],
@@ -120,7 +113,7 @@ export const LoginForm: React.FC = () => {
                         {
                             required: true,
                             min: 8,
-                            message: 'Введите пароль',
+                            message: '',
                         },
                         () => ({
                             validator(_, value) {
@@ -138,16 +131,11 @@ export const LoginForm: React.FC = () => {
                         }),
                     ]}
                     name='password'
-                    help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
+                    // help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
                 >
                     <Input.Password size='large' placeholder='Пароль' />
                 </Form.Item>
-                <Row
-                    justify='space-between'
-                    style={{
-                        marginBottom: '24px',
-                    }}
-                >
+                <Row className={styles.forgot}>
                     <Form.Item name='remember' valuePropName='checked'>
                         <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                     </Form.Item>

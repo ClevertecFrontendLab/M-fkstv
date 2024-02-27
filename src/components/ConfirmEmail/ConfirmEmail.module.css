@@ -17,15 +17,13 @@
 .root :global(.ant-result) {
     padding: 0;
     width: 475px;
-    /* font-family: var(--font-family); */
-    /* color: var(--character-light-title-85); */
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
 }
 
-.root :global(.ant-result-title) {
+.root :global(.ant-typography) {
     font-weight: 500;
     font-size: 2.4rem;
     line-height: 130%;
@@ -53,4 +51,46 @@
 
 .characterInactive {
     background-color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+    .root {
+        width: 328px;
+        padding: 32px;
+    }
+
+    .root :global(.ant-result-content) {
+        padding-inline: 0;
+    }
+
+    .root :global(.ant-typography) {
+        font-size: 24px;
+        line-height: 31.2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    .root :global(.ant-result-subtitle) {
+        line-height: 18.2px;
+    }
+
+    .root :global(.ant-result-content) {
+        padding: 0;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .root :global(.ant-result-content .ant-typography) {
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 18.2px;
+        color: #8c8c8c;
+    }
+
+    .character,
+    .characterError {
+        height: 40px;
+        width: 40px;
+    }
 }

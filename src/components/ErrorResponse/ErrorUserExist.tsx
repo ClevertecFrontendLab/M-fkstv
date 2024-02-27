@@ -3,20 +3,14 @@ import { Button, Result, Typography } from 'antd';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 
+import styles from './ErrrorResponse.module.css';
+
 export const ErrorUserExist: React.FC = () => {
     const dispatch = useAppDispatch();
 
     return (
         <Result
-            style={{
-                backgroundColor: 'white',
-                zIndex: 50,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                padding: '64px 85.5px',
-                width: 540,
-            }}
+            className={styles.root}
             status='warning'
             title={<Typography.Title level={2}>Данные не сохранились</Typography.Title>}
             subTitle='Такой e-mail уже записан в системе. Попробуйте зарегестрироваться по другому e-mail.'

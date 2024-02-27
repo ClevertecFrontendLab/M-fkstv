@@ -6,14 +6,20 @@ import { history } from '@redux/configure-store';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../Layuot/Layout';
-import { ErrorResponse } from '../ErrorResponse/ErrorResponse';
+
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
 import { LoginError } from '@pages/error-login';
 import { ResultError } from '@pages/error-result';
 import { ConfirmEmail } from '@components/ConfirmEmail';
-import { ErrorCheckEmail, ErrorUserExist } from '@components/ErrorResponse';
+import {
+    ErrorCheckEmail,
+    ErrorPasswordChange,
+    ErrorUserExist,
+    ErrorResponse,
+} from '@components/ErrorResponse';
 import { PasswordChange } from '@components/Form';
+import { SuccesPassworChange } from '@components/ResultPassworChange';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -37,11 +43,13 @@ export const App = () => {
 
                     <Route path='result'>
                         <Route path='success' element={<RegistrationSuccess />} />
+                        <Route path='success-change-password' element={<SuccesPassworChange />} />
                         <Route path='error' element={<ResultError />} />
                         <Route path='error-login' element={<LoginError />} />
                         <Route path='error-user-exist' element={<ErrorUserExist />} />
                         <Route path='error-check-email' element={<ErrorCheckEmail />} />
                         <Route path='error-check-email-no-exist' element={<ErrorResponse />} />
+                        <Route path='error-change-password' element={<ErrorPasswordChange />} />
                     </Route>
                 </Route>
             </Routes>

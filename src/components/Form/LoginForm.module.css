@@ -29,3 +29,26 @@
     font-weight: 400;
     line-height: 20.8px;
 }
+
+@media screen and (max-width: 600px) {
+    .forgot {
+        font-size: 12px;
+        letter-spacing: 0.1px;
+        margin-bottom: 0;
+        margin-top: 46px;
+    }
+
+    .span {
+        font-size: 14px;
+        line-height: 18.2px;
+        padding-right: 4px;
+    }
+
+    .forgot.ant-row {
+        flex-flow: nowrap;
+    }
+
+    .ant-checkbox + span {
+        padding-left: 8px;
+    }
+}
