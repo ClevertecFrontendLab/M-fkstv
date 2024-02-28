@@ -58,6 +58,7 @@ export const ConfirmEmail: React.FC = () => {
                 inputProps={{ 'data-test-id': 'verification-input' }}
                 onComplete={handleComplete}
                 classNames={{
+                    container: styles.container,
                     character: error ? styles.characterError : styles.character,
                     characterInactive: styles.characterInactive,
                     characterSelected: styles.characterSelected,

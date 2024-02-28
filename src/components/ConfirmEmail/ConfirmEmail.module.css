@@ -25,8 +25,8 @@
 
 .root :global(.ant-typography) {
     font-weight: 500;
-    font-size: 2.4rem;
-    line-height: 130%;
+    font-size: 24px;
+    line-height: 31.2px;
     font-family: Inter;
     white-space: pre-wrap;
     text-align: center;
@@ -34,6 +34,17 @@
 
 .root :global(.ant-result-content) {
     background-color: #fff;
+}
+.container {
+    margin-bottom: 24px;
+}
+
+.root :global(.ant-result-content .ant-typography) {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 18.2px;
+    color: #8c8c8c;
 }
 
 .character {
@@ -78,14 +89,6 @@
         padding: 0;
         margin-top: 0;
         text-align: center;
-    }
-
-    .root :global(.ant-result-content .ant-typography) {
-        font-size: 14px;
-        font-weight: 400;
-        text-align: center;
-        line-height: 18.2px;
-        color: #8c8c8c;
     }
 
     .character,
