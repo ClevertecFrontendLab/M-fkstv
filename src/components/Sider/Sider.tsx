@@ -1,4 +1,4 @@
-import { Divider, Layout, Menu } from 'antd';
+import { Button, Divider, Layout, Menu } from 'antd';
 import { useState } from 'react';
 
 import {
@@ -17,10 +17,21 @@ import Logo from '../../assets/images/logo.svg';
 import MobileLogo from '../../assets/images/mobileLogo.svg';
 
 import { useIsMObile } from '@hooks/isMobile';
+import { history } from '@redux/configure-store';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { removeUser } from '@redux/slices/user.slice';
 
 export const Sider = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const dispatch = useAppDispatch();
     const { isMobile } = useIsMObile();
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        dispatch(removeUser());
+        history.push('/auth');
+    };
+
     return (
         <Layout.Sider
             trigger={null}
@@ -78,22 +89,24 @@ export const Sider = () => {
                     items={[
                         {
                             key: '1',
-                            icon: isMobile ? '' : <CalendarTwoTone twoToneColor='#061178' />,
+                            icon: !isMobile && (
+                                <CalendarTwoTone twoToneColor={['#061178', '#061178']} />
+                            ),
                             label: 'Календарь',
                         },
                         {
                             key: '2',
-                            icon: isMobile ? '' : <HeartFilled style={{ color: '#061178' }} />,
+                            icon: !isMobile && <HeartFilled style={{ color: '#061178' }} />,
                             label: 'Тренировки',
                         },
                         {
                             key: '3',
-                            icon: isMobile ? '' : <TrophyFilled style={{ color: '#061178' }} />,
+                            icon: !isMobile && <TrophyFilled style={{ color: '#061178' }} />,
                             label: 'Достижения ',
                         },
                         {
                             key: '4',
-                            icon: isMobile ? '' : <IdcardOutlined style={{ color: '#061178' }} />,
+                            icon: !isMobile && <IdcardOutlined style={{ color: '#061178' }} />,
                             label: 'Профиль',
                         },
                     ]}
@@ -105,10 +118,10 @@ export const Sider = () => {
                             margin: '0',
                         }}
                     />
-                    <button>
+                    <Button onClick={handleLogOut}>
                         <img src={Exit} alt='Выйти' />
                         {!collapsed && <span>Выход</span>}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </Layout.Sider>

@@ -3,8 +3,8 @@
 }
 
 .mobileLogo {
-    padding: 48px 0px 60px 18px;
-    padding: 52px 0px 56px 18px;
+    padding: 48px 0 60px 18px;
+    padding: 52px 0 56px 18px;
 }
 
 .trigger__wrapper {
@@ -50,7 +50,13 @@
     font-family: Inter;
     font-weight: 400;
     font-size: 14px;
+    line-height: 18.2px;
     gap: 26px;
+    cursor: pointer;
+}
+
+.exit button:hover {
+    color: #2f54eb;
 }
 
 @media (width <= 365px) {
@@ -65,5 +71,9 @@
     }
     .logo a img {
         width: 72px;
+    }
+
+    .nav ul li {
+        padding-inline: 12px !important;
     }
 }

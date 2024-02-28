@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     background-color: transparent;
-    padding: 0 24px 40px 24px;
+    padding: 0 24px 40px;
 }
 
 .apps {
@@ -12,7 +12,7 @@
 }
 
 .top {
-    padding: 12px 24px 12px 24px;
+    padding: 12px 24px;
 }
 
 .top button {
@@ -62,12 +62,12 @@
     line-height: 20.8px;
 }
 
-@media (width <=465px) {
+@media (width <= 465px) {
     .footer {
         width: 100%;
         flex-direction: column-reverse;
         margin-top: 0;
-        padding: 0 18px 40px 18px;
+        padding: 0 18px 40px;
     }
 
     .apps {

@@ -16,7 +16,7 @@
     margin-bottom: 16px;
 }
 
-.title {
+.content .cards .title {
     font-family: Inter;
     font-weight: 500;
     font-size: 20px;
@@ -73,12 +73,25 @@
     line-height: 20.8px;
 }
 
-@media (width <=835px) {
+@media (width <= 835px) {
     .content {
         margin-bottom: 360px;
     }
     .content .cards {
         padding: 24px;
+    }
+
+    /* 
+    .content .cards .title {
+        font-family: Inter;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+        margin-right: 46px;
+    } */
+
+    .content .cards ul {
+        color: #061178;
     }
 
     .content .wrapper .card .card__top {
@@ -87,7 +100,7 @@
     }
 }
 
-@media (width <=465px) {
+@media (width <= 465px) {
     .content {
         padding: 24px 18px;
         margin-bottom: 12px;
@@ -98,8 +111,7 @@
     .content .cards > ul {
         font-weight: 400;
         line-height: 21px;
-        color: #061178;
-        letter-spacing: 0em;
+        letter-spacing: 0;
     }
 
     .content .wrapper {

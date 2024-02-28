@@ -1,12 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { HashRouter, Route, Routes } from 'react-router-dom';
 
+import { App } from '@components/App/App';
 import { store } from '@redux/configure-store';
-import { MainPage } from './pages';
-
 import 'normalize.css';
+import { Provider } from 'react-redux';
 import './index.css';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
@@ -15,11 +13,7 @@ const root = createRoot(domNode);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <HashRouter>
-                <Routes>
-                    <Route path='/' element={<MainPage />} />
-                </Routes>
-            </HashRouter>
+            <App />
         </Provider>
     </React.StrictMode>,
 );

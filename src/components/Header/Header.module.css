@@ -43,7 +43,7 @@
     }
 }
 
-@media (width <= 365px) {
+@media (width <= 460px) {
     .wrapper .title {
         font-size: 20px;
         line-height: 26px;
@@ -55,5 +55,6 @@
         height: 32px;
         border: 1px solid #d9d9d9;
         padding: 7px;
+        background-color: #fff;
     }
 }

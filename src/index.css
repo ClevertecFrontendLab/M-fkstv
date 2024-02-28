@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 html {
     scroll-behavior: smooth;
@@ -7,10 +7,45 @@ html {
 
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    max-width: 1440px;
     margin: 0 auto;
+}
+
+.ant-tabs .ant-tabs-nav {
+    width: 100% !important;
+    margin-bottom: 28px;
+}
+
+.ant-tabs-tab {
+    display: block; /* centers text inside tabs */
+    flex: 1;
+    padding-bottom: 14px;
+    text-align: center;
+    justify-content: center;
+}
+
+.ant-tabs-nav > div:nth-of-type(1) {
+    display: unset !important;
+    width: 100% !important;
+    margin-bottom: 0;
+}
+
+.ant-form-item-explain.ant-form-item-explain-connected {
+    font-size: 12px;
+}
+
+.ant-card-head {
+    border-bottom: none;
+}
+
+.ant-card-head-title {
+    padding: 0;
+}
+
+.ant-btn-primary {
+    background: #2f54eb;
 }
