@@ -89,6 +89,9 @@ export const LoginForm: React.FC = () => {
                 className={styles.root}
             >
                 <Form.Item
+                    style={{
+                        marginBottom: 32,
+                    }}
                     data-test-id='login-email'
                     name='email'
                     rules={[
@@ -99,12 +102,7 @@ export const LoginForm: React.FC = () => {
                         },
                     ]}
                 >
-                    <Input
-                        onChange={onChange}
-                        addonBefore='e-mail:'
-                        size='large'
-                        placeholder='Email'
-                    />
+                    <Input onChange={onChange} addonBefore='e-mail:' size='large' />
                 </Form.Item>
 
                 <Form.Item
@@ -131,7 +129,6 @@ export const LoginForm: React.FC = () => {
                         }),
                     ]}
                     name='password'
-                    // help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
                 >
                     <Input.Password size='large' placeholder='Пароль' />
                 </Form.Item>
@@ -151,7 +148,11 @@ export const LoginForm: React.FC = () => {
                         </Button>
                     </Form.Item>
                 </Row>
-                <Form.Item>
+                <Form.Item
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
                     <Button
                         size='large'
                         block

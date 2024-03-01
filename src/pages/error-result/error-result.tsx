@@ -12,7 +12,7 @@ export const ResultError: React.FC = () => {
         <>
             <Result
                 className={styles.root}
-                status='warning'
+                status='error'
                 title={<Typography.Title level={2}>Данные не сохранились</Typography.Title>}
                 subTitle='Что-то пошло не так и ваша регистрация не заврешилась. Попробуйте ещё раз.'
                 extra={[

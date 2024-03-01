@@ -47,7 +47,9 @@ export const RegistrationForm: React.FC = () => {
             className={styles.root}
         >
             <Form.Item
-                className={styles.input}
+                style={{
+                    marginBottom: 32,
+                }}
                 name='email'
                 data-test-id='registration-email'
                 rules={[
@@ -63,7 +65,9 @@ export const RegistrationForm: React.FC = () => {
             </Form.Item>
 
             <Form.Item
-                className={styles.inputPassword}
+                style={{
+                    marginBottom: 46,
+                }}
                 name='password'
                 rules={[
                     { required: true, message: 'Please input your Password!' },

@@ -20,6 +20,8 @@ import {
 } from '@components/ErrorResponse';
 import { PasswordChange } from '@components/Form';
 import { SuccesPassworChange } from '@components/ResultPassworChange';
+import { Feedback } from '@pages/feedbacks';
+import { Content } from '@components/Content';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -31,7 +33,11 @@ export const App = () => {
     return (
         <HistoryRouter history={history}>
             <Routes>
-                <Route path='main' element={<MainPage />} />
+                <Route path='/' element={<MainPage />}>
+                    <Route path='main' element={<Content />} />
+                    <Route path='feedback' element={<Feedback />} />
+                </Route>
+
                 <Route path='/' element={<Layout />}>
                     <Route path='auth' element={<RegistrationPage mode='auth' />} />
                     <Route path='auth/confirm-email' element={<ConfirmEmail />} />

@@ -14,7 +14,7 @@ export const Content = () => {
     return (
         <Layout.Content className={styles.content}>
             <div className={styles.cards}>
-                {/* <List
+                {/* <List   // TODO: сделать через компонент antd
                     bordered={false}
                     dataSource={list}
                     header={' C CleverFit ты сможешь'}
@@ -27,24 +27,6 @@ export const Content = () => {
                         return <li key={index}>{item}</li>;
                     })}
                 </ul>
-                {/* <ul>
-                    C CleverFit ты сможешь:
-                    <li>
-                        — планировать свои тренировки на календаре,выбирая тип и уровень нагрузки;
-                    </li>
-                    <li>
-                        — отслеживать свои достижения в разделе статистики, сравнивая свои
-                        результаты c нормами и рекордами;
-                    </li>
-                    <li>
-                        — создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы
-                        о тренировках;
-                    </li>
-                    <li>
-                        — выполнять расписанные тренировки для разных частей тела, следуя подробным
-                        инструкциям и советам профессиональных тренеров.
-                    </li>
-                </ul> */}
             </div>
 
             <div className={styles.cards}>

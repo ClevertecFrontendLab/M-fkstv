@@ -17,9 +17,14 @@ export const ConfirmEmail: React.FC = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
 
-    const title = isFetchBaseQueryError(error)
-        ? error.data?.message
-        : ' Введите код для восстановления аккаунта';
+    const title = error ? (
+        <Typography.Text>Неверный код.ВВедите код для восстановления аккаунта</Typography.Text>
+    ) : (
+        <Typography.Text>
+            Введите код
+            <br /> для восстановления аккаунта
+        </Typography.Text>
+    );
     const status = error ? 'error' : 'info';
 
     const handleComplete = async (code: string) => {
@@ -36,8 +41,8 @@ export const ConfirmEmail: React.FC = () => {
             className={styles.root}
             title={<Typography.Title level={2}>{title}</Typography.Title>}
             subTitle={
-                <p className={styles.subtitle}>
-                    'Мы отправили вам на e-mail{' '}
+                <Typography.Text className={styles.subtitle}>
+                    Мы отправили вам на e-mail{' '}
                     <span
                         style={{
                             fontWeight: 'bold',
@@ -46,8 +51,8 @@ export const ConfirmEmail: React.FC = () => {
                         {email}
                     </span>
                     <br />
-                    шестизначный код. Введите его в поле ниже.'
-                </p>
+                    шестизначный код. Введите его в поле ниже.
+                </Typography.Text>
             }
         >
             <VerificationInput

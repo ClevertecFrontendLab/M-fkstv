@@ -8,6 +8,7 @@ import { Sider } from '@components/Sider';
 import 'antd/dist/antd.css';
 import './main-page.css';
 import { Footer } from '@components/Footer';
+import { Outlet } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {
     return (
@@ -20,7 +21,8 @@ export const MainPage: React.FC = () => {
                 <Sider />
                 <Layout className='site-layout'>
                     <Header />
-                    <Content />
+                    <Outlet />
+                    {/* <Content /> */}
                     <Footer />
                 </Layout>
             </Layout>

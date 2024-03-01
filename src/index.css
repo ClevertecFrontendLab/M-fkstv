@@ -38,6 +38,9 @@ body {
     font-size: 12px;
 }
 
+.ant-tabs.ant-tabs-top.ant-tabs-large .ant-tabs-nav .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+    width: 50%;
+}
 .ant-card-head {
     border-bottom: none;
 }
