@@ -1,16 +1,16 @@
 import { APIbaseURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-type Feedback = {
+export type Feedback = {
     id: string;
-    fullname: string | null;
-    imageSrc: string | null;
-    message: string | null;
+    fullname?: string;
+    imageSrc?: string;
+    message?: string;
     rating: number;
     createdAt: string;
 };
 
-type FeedbackResponse = Feedback[];
+export type FeedbackResponse = Feedback[];
 
 export const feedbackApi = createApi({
     reducerPath: 'feedbackApi',
@@ -26,18 +26,10 @@ export const feedbackApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Feedbacks'],
+    tagTypes: ['Feedback'],
     endpoints: (builder) => ({
-        getFeedbacks: builder.query<FeedbackResponse, null>({
+        getFeedbacks: builder.query<FeedbackResponse, ''>({
             query: () => '',
-
-            providesTags: (result) =>
-                result
-                    ? [
-                          ...result.map(({ id }) => ({ type: 'Feedbacks' as const, id })),
-                          { type: 'Feedbacks', id: 'LIST' },
-                      ]
-                    : [{ type: 'Feedbacks', id: 'LIST' }],
         }),
     }),
 });

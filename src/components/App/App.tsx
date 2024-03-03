@@ -1,27 +1,27 @@
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { MainPage } from '@pages/main-page';
-import { RegistrationPage } from '@pages/registration-page';
-import { RegistrationSuccess } from '@pages/registration-success';
-import { history } from '@redux/configure-store';
 import { useEffect } from 'react';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { history } from '@redux/configure-store';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from '../Layuot/Layout';
 
-import { push } from 'redux-first-history';
-import { HistoryRouter } from 'redux-first-history/rr6';
-import { LoginError } from '@pages/error-login';
-import { ResultError } from '@pages/error-result';
 import { ConfirmEmail } from '@components/ConfirmEmail';
 import {
     ErrorCheckEmail,
     ErrorPasswordChange,
-    ErrorUserExist,
     ErrorResponse,
+    ErrorUserExist,
 } from '@components/ErrorResponse';
+import { Layout } from '../Layuot/Layout';
+import { RegistrationPage } from '@pages/registration-page';
+import { RegistrationSuccess } from '@pages/registration-success';
+import { MainPage } from '@pages/main-page';
 import { PasswordChange } from '@components/Form';
 import { SuccesPassworChange } from '@components/ResultPassworChange';
+import { RootLayout } from '@components/RootLayout';
+import { LoginError } from '@pages/error-login';
+import { ResultError } from '@pages/error-result';
 import { Feedback } from '@pages/feedbacks';
-import { Content } from '@components/Content';
+import { push } from 'redux-first-history';
+import { HistoryRouter } from 'redux-first-history/rr6';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ export const App = () => {
         <HistoryRouter history={history}>
             <Routes>
                 <Route path='/' element={<MainPage />}>
-                    <Route path='main' element={<Content />} />
+                    <Route path='main' element={<RootLayout />} />
                     <Route path='feedback' element={<Feedback />} />
                 </Route>
 

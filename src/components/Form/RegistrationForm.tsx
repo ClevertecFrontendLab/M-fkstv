@@ -139,7 +139,13 @@ export const RegistrationForm: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button size='large' block htmlType='submit' icon={<GooglePlusOutlined />}>
+                    <Button
+                        onClick={() => (window.location.href = 'http://localhost:3000/auth/google')}
+                        size='large'
+                        block
+                        htmlType='submit'
+                        icon={<GooglePlusOutlined />}
+                    >
                         Регистрация через Google
                     </Button>
                 </Form.Item>

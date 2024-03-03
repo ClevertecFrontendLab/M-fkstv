@@ -1,5 +1,5 @@
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
-import { Button, Layout, List, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 
 import styles from './Content.module.css';
 

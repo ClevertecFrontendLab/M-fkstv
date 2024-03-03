@@ -6,7 +6,9 @@ import { push } from 'redux-first-history';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setUser } from '@redux/slices/user.slice';
-import { Itoken, useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
+import { useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
+
+import { Itoken } from '../../types/types';
 
 import { Loader } from '@components/Loader';
 
@@ -54,6 +56,10 @@ export const LoginForm: React.FC = () => {
             handleCheckEmail(email);
         }
     }, [email, handleCheckEmail, prevLocation]);
+
+    const handleGoogleAuth = () => {
+        window.location.href = 'http://localhost:3000/auth/google';
+    };
 
     const onFinish = useCallback(
         async (values: formValues) => {
@@ -164,7 +170,13 @@ export const LoginForm: React.FC = () => {
                     </Button>
                 </Form.Item>
                 <Form.Item>
-                    <Button size='large' htmlType='submit' block icon={<GooglePlusOutlined />}>
+                    <Button
+                        onClick={handleGoogleAuth}
+                        size='large'
+                        htmlType='submit'
+                        block
+                        icon={<GooglePlusOutlined />}
+                    >
                         Войти через Google
                     </Button>
                 </Form.Item>

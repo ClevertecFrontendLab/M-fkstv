@@ -1,5 +1,5 @@
 import { SettingOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Layout, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 
 import styles from './Header.module.css';
 
@@ -10,9 +10,9 @@ export const Header = () => {
 
     return (
         <Layout.Header style={{ padding: '14px 24px', height: 'auto', backgroundColor: '#f0f5ff' }}>
-            <Breadcrumb className={styles.breadcrumb}>
+            {/* <Breadcrumb className={styles.breadcrumb}>
                 <Breadcrumb.Item>Главная</Breadcrumb.Item>
-            </Breadcrumb>
+            </Breadcrumb> */}
             <div className={styles.wrapper}>
                 <Typography.Title className={styles.title}>
                     Приветствуем тебя в CleverFit &mdash; приложении,

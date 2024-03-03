@@ -7,7 +7,6 @@ import { push } from 'redux-first-history';
 import { Loader } from '@components/Loader';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { useConfirmEmailMutation } from '@redux/api/loginApi';
-import { isFetchBaseQueryError } from '../../types/errorTypes';
 
 import styles from './ConfirmEmail.module.css';
 

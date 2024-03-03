@@ -1,42 +1,82 @@
-import { Loader } from '@components/Loader';
-import { Rating } from '@components/Rating';
+import { useState } from 'react';
+import { Button, Row, Space } from 'antd';
+
 import { useGetFeedbacksQuery } from '@redux/api/feedbackApi';
-import { Avatar, Comment, List, Typography } from 'antd';
-import styles from './feedback.module.css';
 
-export const Feedback = () => {
-    const { data: feadbacks, isFetching, isLoading } = useGetFeedbacksQuery(null);
+import { Loader } from '@components/Loader';
+import { FeedbackList } from '@components/FeedbackList';
 
-    const formattedDate = (currentDate: Date) =>
-        currentDate.toLocaleDateString('ru-RU', {
-            month: '2-digit',
-            day: '2-digit',
-            year: 'numeric',
-        });
+export const Feedback: React.FC = () => {
+    const [showAll, setShowAll] = useState<boolean>(false);
 
-    if (isLoading) return <Loader />;
+    const [open, setOpen] = useState<boolean>(false);
+    const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('Content of the modal');
+    const showModal = () => {
+        setOpen(true);
+    };
+    const handleOk = () => {
+        setModalText('The modal will be closed after two seconds');
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setOpen(false);
+            setConfirmLoading(false);
+        }, 2000);
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setOpen(false);
+    };
+
+    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery('');
+
+    const dataToShow = !showAll ? feedbacks?.slice(0, 4) : feedbacks;
+
+    if (isLoading || isFetching) return <Loader />;
+
+    const handleClick = () => {
+        console.log('Button clicked');
+    };
+
+    const nahdleShowAll = () => {
+        setShowAll(!showAll);
+    };
+
     return (
-        <List
-            className={styles.root}
-            dataSource={feadbacks?.slice(0, 4)}
-            itemLayout='horizontal'
-            renderItem={(item) => (
-                <div className={styles.item}>
-                    <Comment
-                        avatar={
-                            <div className={styles.avatar}>
-                                <Avatar src={item.imageSrc} size={42} alt={'###'} />
-                                <Typography.Text>Вероника Киверова</Typography.Text>
-                            </div>
-                        }
-                        author={<Rating rating={item.rating} />}
-                        datetime={formattedDate(new Date(item.createdAt))}
-                        content={
-                            'Я очень довольна этим приложением! Оно помогает мне следить за своим здоровьем и физической формой, предлагая разнообразные упражнения и питание. Я люблю, что приложение адаптируется к моему уровню и целям, и дает мне полезные советы и обратную связь. Я рекомендую это приложение всем, кто хочет улучшить свою жизнь!'
-                        }
-                    />
-                </div>
-            )}
-        ></List>
+        <>
+            <FeedbackList feedbacks={dataToShow} />
+
+            <Row>
+                <Space
+                    style={{
+                        paddingLeft: 24,
+                    }}
+                    size={8}
+                >
+                    <Button
+                        onClick={handleClick}
+                        style={{
+                            fontSize: 14,
+                        }}
+                        // className={styles.btn}
+                        size='large'
+                        type='primary'
+                    >
+                        Написать отзыв
+                    </Button>
+                    <Button
+                        onClick={nahdleShowAll}
+                        style={{
+                            fontSize: 16,
+                        }}
+                        // className={styles.btn}
+                        size='large'
+                        type='link'
+                    >
+                        {!showAll ? 'Развернуть все отзывы' : 'Скрыть отзывы'}
+                    </Button>
+                </Space>
+            </Row>
+        </>
     );
 };

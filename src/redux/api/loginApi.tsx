@@ -1,4 +1,4 @@
-import { baseURL } from '@constants/baseURL';
+import { authURL } from '@constants/baseURL';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
     IChangePassword,
@@ -13,7 +13,7 @@ import {
 
 export const loginAPI = createApi({
     reducerPath: 'loginApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${baseURL}` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${authURL}` }),
 
     endpoints: (builder) => ({
         login: builder.mutation<Itoken, formValues>({

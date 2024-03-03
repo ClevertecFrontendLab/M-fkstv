@@ -1,5 +1,5 @@
 import { Button, Result, Typography } from 'antd';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const SuccesPassworChange = () => {
