@@ -20,7 +20,7 @@ export type FeedbackResponse = Feedback[];
 export const feedbackApi = createApi({
     reducerPath: 'feedbackApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${APIbaseURL}`,
+        baseUrl: `${APIbaseURL}/feedback`,
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('token');
 
@@ -34,13 +34,13 @@ export const feedbackApi = createApi({
     tagTypes: ['Feedback'],
     endpoints: (builder) => ({
         getFeedbacks: builder.query<FeedbackResponse, void>({
-            query: () => '/feedback',
+            query: () => '',
             providesTags: ['Feedback'],
         }),
 
         postFeedback: builder.mutation<void, FeedbackForm>({
             query: (body) => ({
-                url: '/feedback',
+                url: '',
                 method: 'POST',
                 body,
             }),

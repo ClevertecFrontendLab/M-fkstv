@@ -8,7 +8,7 @@ type RatingPropsType = RateProps & {
 export const Rating = ({ rating }: RatingPropsType) => {
     return (
         <Rate
-            defaultValue={rating}
+            value={rating}
             className={styles.rate}
             character={({ index = 0, value = 0 }) => {
                 if (index != undefined)

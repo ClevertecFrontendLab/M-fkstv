@@ -1,28 +1,38 @@
 import { Button, Row, Space } from 'antd';
 import { useState } from 'react';
 
-import { useGetFeedbacksQuery } from '@redux/api/feedbackApi';
+import {
+    FeedbackForm,
+    useGetFeedbacksQuery,
+    usePostFeedbackMutation,
+} from '@redux/api/feedbackApi';
 
 import { AddFeedbackModal } from '@components/AddFeedbackModal';
 import { FeedbackList } from '@components/FeedbackList';
 import { Loader } from '@components/Loader';
 import { useSortByDate } from '@hooks/sort-by-date-hook';
+import { FeedbackFooter } from '@components/FeedbackFooter';
 
 export const Feedback = () => {
     const [showAll, setShowAll] = useState<boolean>(false);
-
     const [open, setOpen] = useState<boolean>(false);
+    const [postFeedback, { isSuccess }] = usePostFeedbackMutation();
 
     const showModal = () => {
         setOpen(true);
     };
-    const handleOk = () => {
-        console.log('fuck');
-        setOpen(false);
-    };
+
     const handleCancel = () => {
         setOpen(false);
     };
+
+    const set = async (val: FeedbackForm) => {
+        await postFeedback(val).unwrap();
+    };
+
+    if (isSuccess) {
+        console.log(';adasdfjsnvkj');
+    }
 
     const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery();
     const sorted = useSortByDate(feedbacks);
@@ -38,38 +48,13 @@ export const Feedback = () => {
     return (
         <>
             <FeedbackList feedbacks={dataToShow} />
-            <AddFeedbackModal open={open} onOk={handleOk} onCancel={handleCancel} />
-            <Row>
-                <Space
-                    style={{
-                        paddingLeft: 24,
-                    }}
-                    size={8}
-                >
-                    <Button
-                        onClick={showModal}
-                        style={{
-                            fontSize: 14,
-                        }}
-                        // className={styles.btn}
-                        size='large'
-                        type='primary'
-                    >
-                        Написать отзыв
-                    </Button>
-                    <Button
-                        onClick={nahdleShowAll}
-                        style={{
-                            fontSize: 16,
-                        }}
-                        // className={styles.btn}
-                        size='large'
-                        type='link'
-                    >
-                        {!showAll ? 'Развернуть все отзывы' : 'Скрыть отзывы'}
-                    </Button>
-                </Space>
-            </Row>
+            <AddFeedbackModal
+                onSubmit={set}
+                open={open}
+                setOpen={setOpen}
+                onCancel={handleCancel}
+            />
+            <FeedbackFooter showAll={showAll} onClick={showModal} onShowAll={nahdleShowAll} />
         </>
     );
 };

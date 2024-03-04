@@ -7,7 +7,7 @@ type FeedbackFooterProps = {
     showAll: boolean;
 };
 
-export const FeedbackFooter: React.FC<FeedbackFooterProps> = ({ showAll, onClick, onShowAll }) => {
+export const FeedbackFooter: React.FC<FeedbackFooterProps> = ({ onClick, showAll, onShowAll }) => {
     return (
         <Row>
             <Space

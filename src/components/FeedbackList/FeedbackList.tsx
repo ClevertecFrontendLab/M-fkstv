@@ -32,7 +32,7 @@ export const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
                                 <Typography.Text>{item.fullname}</Typography.Text>
                             </div>
                         }
-                        author={<Rating rating={item.rating} />}
+                        author={<Rating rating={item.rating} disabled />}
                         datetime={formattedDate(new Date(item.createdAt))}
                         content={item.message}
                         // content={

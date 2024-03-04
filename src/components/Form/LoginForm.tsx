@@ -53,7 +53,7 @@ export const LoginForm: React.FC = () => {
     }, [handleCheckEmail, prevLocation, values.email]);
 
     const handleGoogleAuth = () => {
-        window.location.href = 'http://localhost:3000/auth/google';
+        window.location.href = 'https://marathon-api.clevertec.ru/auth/google';
     };
 
     const onFinish = useCallback(

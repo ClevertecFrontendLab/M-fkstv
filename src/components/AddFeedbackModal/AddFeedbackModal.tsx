@@ -1,10 +1,13 @@
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { Rating } from '@components/Rating';
-import { usePostFeedbackMutation } from '@redux/api/feedbackApi';
 import { Form, Input, Modal, ModalProps, Rate } from 'antd';
+import { Dispatch, SetStateAction, useState } from 'react';
+
+import rateStyles from '../Rating/Rating.module.css';
 
 type AddFeedbackModalProps = ModalProps & {
     open: boolean;
+    onSubmit: (val: FeedbackForm) => void;
+    setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export type FeedbackForm = {
@@ -12,25 +15,13 @@ export type FeedbackForm = {
     message?: string;
 };
 
-export const AddFeedbackModal = ({ open, onOk, onCancel }: AddFeedbackModalProps) => {
-    const [postFeedback] = usePostFeedbackMutation();
+export const AddFeedbackModal = ({ onSubmit, open, setOpen, onCancel }: AddFeedbackModalProps) => {
+    const [validForm, setvalidForm] = useState<boolean>(false);
     const [form] = Form.useForm<FeedbackForm>();
 
-    const handleCancel = () => {
-        console.log('Clicked cancel button');
-    };
-
     const handleOk = async () => {
-        if (!form.validateFields()) console.log('not valid');
-
-        await form
-            .validateFields()
-            .then((values) => {
-                postFeedback(values);
-            })
-            .catch((errorInfo) => {
-                console.log(errorInfo);
-            });
+        onSubmit(await form.validateFields());
+        setOpen(!open);
     };
 
     return (
@@ -40,11 +31,9 @@ export const AddFeedbackModal = ({ open, onOk, onCancel }: AddFeedbackModalProps
             onOk={handleOk}
             onCancel={onCancel}
             okType='link'
-            okButtonProps={
-                {
-                    // disabled: !valid,
-                }
-            }
+            okButtonProps={{
+                disabled: !validForm,
+            }}
             cancelButtonProps={{
                 hidden: true,
             }}
@@ -56,11 +45,32 @@ export const AddFeedbackModal = ({ open, onOk, onCancel }: AddFeedbackModalProps
         >
             <Form form={form}>
                 <Form.Item name='rating' required>
-                    <Rating rating={0} />
+                    <Rate
+                        onChange={() => setvalidForm(true)}
+                        className={rateStyles.rate}
+                        character={({ index = 0, value = 0 }) => {
+                            if (index != undefined)
+                                return index < value ? (
+                                    <StarFilled
+                                        style={{
+                                            fontSize: 16,
+                                            color: '#FAAD14',
+                                        }}
+                                    />
+                                ) : (
+                                    <StarOutlined
+                                        style={{
+                                            fontSize: 16,
+                                            color: '#FAAD14',
+                                        }}
+                                    />
+                                );
+                        }}
+                    />
                 </Form.Item>
 
                 <Form.Item name='message'>
-                    <Input.TextArea autoSize />
+                    <Input.TextArea />
                 </Form.Item>
             </Form>
         </Modal>
