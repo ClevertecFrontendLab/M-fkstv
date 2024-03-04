@@ -1,18 +1,18 @@
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { Rate } from 'antd';
+import { Rate, RateProps } from 'antd';
 import styles from './Rating.module.css';
 
-type RatingPropsType = {
-    rating: number;
+type RatingPropsType = RateProps & {
+    rating?: number;
 };
 export const Rating = ({ rating }: RatingPropsType) => {
     return (
         <Rate
-            value={rating}
+            defaultValue={rating}
             className={styles.rate}
-            character={({ index }) => {
+            character={({ index = 0, value = 0 }) => {
                 if (index != undefined)
-                    return rating > index ? (
+                    return index < value ? (
                         <StarFilled
                             style={{
                                 fontSize: 16,

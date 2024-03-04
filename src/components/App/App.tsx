@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
 import { Route, Routes } from 'react-router-dom';
 
@@ -25,6 +25,7 @@ import { HistoryRouter } from 'redux-first-history/rr6';
 
 export const App = () => {
     const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.user);
 
     useEffect(() => {
         localStorage.getItem('token') ? dispatch(push('/main')) : dispatch(push('/auth'));

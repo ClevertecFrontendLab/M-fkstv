@@ -1,14 +1,14 @@
-import { Feedback } from "@redux/api/feedbackApi";
+import { Feedback, FeedbackResponse } from "@redux/api/feedbackApi";
 
 
 
-  export const useSortByDate = (arr: Feedback[]): Feedback[] | undefined => {
+  export const useSortByDate = (arr: FeedbackResponse ): Feedback[]  => {
     if(typeof arr !=='undefined'){
 
         const sorted = [...arr];
         for (let i = 0; i < sorted.length - 1; i++) {
           for (let j = 0; j < sorted.length - 1 - i; j++) {
-            if (sorted[j].createdAt < sorted[j + 1].createdAt) {
+            if (new Date(sorted[j].createdAt) < (new Date(sorted[j + 1].createdAt)) ) {
               const temp = sorted[j + 1];
               sorted[j + 1] = sorted[j];
               sorted[j] = temp;
@@ -17,5 +17,8 @@ import { Feedback } from "@redux/api/feedbackApi";
         }
         return sorted;
     }
+    return arr
+
+}
     
-  }
+  

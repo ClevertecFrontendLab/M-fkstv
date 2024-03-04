@@ -8,19 +8,19 @@ type FeedbackListProps = {
     feedbacks: Feedback[];
 };
 
-export const FeedbackList: React.FC<FeedbackListProps> = ({ feedbacks }) => {
+export const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
     const formattedDate = (currentDate: Date) =>
         currentDate.toLocaleDateString('ru-RU', {
             month: '2-digit',
             day: '2-digit',
             year: 'numeric',
         });
-    const sortedData = useSortByDate(feedbacks);
+    // const sortedData = useSortByDate(feedbacks);
 
     return (
         <List
             className={styles.root}
-            dataSource={sortedData}
+            dataSource={feedbacks}
             itemLayout='horizontal'
             renderItem={(item) => (
                 <div className={styles.item}>

@@ -1,42 +1,35 @@
-import { useState } from 'react';
 import { Button, Row, Space } from 'antd';
+import { useState } from 'react';
 
 import { useGetFeedbacksQuery } from '@redux/api/feedbackApi';
 
-import { Loader } from '@components/Loader';
+import { AddFeedbackModal } from '@components/AddFeedbackModal';
 import { FeedbackList } from '@components/FeedbackList';
+import { Loader } from '@components/Loader';
+import { useSortByDate } from '@hooks/sort-by-date-hook';
 
-export const Feedback: React.FC = () => {
+export const Feedback = () => {
     const [showAll, setShowAll] = useState<boolean>(false);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-    const [modalText, setModalText] = useState<string>('Content of the modal');
+
     const showModal = () => {
         setOpen(true);
     };
     const handleOk = () => {
-        setModalText('The modal will be closed after two seconds');
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
+        console.log('fuck');
+        setOpen(false);
     };
     const handleCancel = () => {
-        console.log('Clicked cancel button');
         setOpen(false);
     };
 
-    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery('');
+    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery();
+    const sorted = useSortByDate(feedbacks);
 
-    const dataToShow = !showAll ? feedbacks?.slice(0, 4) : feedbacks;
+    const dataToShow = showAll ? sorted : sorted?.slice(0, 4);
 
     if (isLoading || isFetching) return <Loader />;
-
-    const handleClick = () => {
-        console.log('Button clicked');
-    };
 
     const nahdleShowAll = () => {
         setShowAll(!showAll);
@@ -45,7 +38,7 @@ export const Feedback: React.FC = () => {
     return (
         <>
             <FeedbackList feedbacks={dataToShow} />
-
+            <AddFeedbackModal open={open} onOk={handleOk} onCancel={handleCancel} />
             <Row>
                 <Space
                     style={{
@@ -54,7 +47,7 @@ export const Feedback: React.FC = () => {
                     size={8}
                 >
                     <Button
-                        onClick={handleClick}
+                        onClick={showModal}
                         style={{
                             fontSize: 14,
                         }}

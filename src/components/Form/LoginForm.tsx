@@ -1,6 +1,6 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { push } from 'redux-first-history';
 
@@ -18,18 +18,13 @@ import { formValues } from '../../types/types';
 import styles from './LoginForm.module.css';
 
 export const LoginForm: React.FC = () => {
-    const [email, setEmail] = useState<string>('');
     const [form] = Form.useForm();
-
+    const values: formValues = form.getFieldsValue(true);
     const [login, { isSuccess, isLoading }] = useLoginMutation();
     const [checkEmail] = useCheckEmailMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
     const prevLocation = useAppSelector((state) => state.router.previousLocations);
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
 
     const validateEmail = (email: string): boolean => {
         return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
@@ -53,9 +48,9 @@ export const LoginForm: React.FC = () => {
 
     useEffect(() => {
         if (prevLocation && prevLocation[1]?.location?.pathname === '/result/error-check-email') {
-            handleCheckEmail(email);
+            handleCheckEmail(values.email);
         }
-    }, [email, handleCheckEmail, prevLocation]);
+    }, [handleCheckEmail, prevLocation, values.email]);
 
     const handleGoogleAuth = () => {
         window.location.href = 'http://localhost:3000/auth/google';
@@ -108,7 +103,7 @@ export const LoginForm: React.FC = () => {
                         },
                     ]}
                 >
-                    <Input onChange={onChange} addonBefore='e-mail:' size='large' />
+                    <Input addonBefore='e-mail:' size='large' />
                 </Form.Item>
 
                 <Form.Item
@@ -148,7 +143,9 @@ export const LoginForm: React.FC = () => {
                             type='link'
                             className={styles.span}
                             data-test-id='login-forgot-button'
-                            onClick={() => validateEmail(email) && handleCheckEmail(email)}
+                            onClick={() =>
+                                validateEmail(values.email) && handleCheckEmail(values.email)
+                            }
                         >
                             Забыли пароль?
                         </Button>
