@@ -1,5 +1,5 @@
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { Form, Input, Modal, ModalProps, Rate } from 'antd';
+import { Form, Input, Modal, ModalProps, Rate, Typography } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import rateStyles from '../Rating/Rating.module.css';
@@ -17,6 +17,7 @@ export type FeedbackForm = {
 
 export const AddFeedbackModal = ({ onSubmit, open, setOpen, onCancel }: AddFeedbackModalProps) => {
     const [validForm, setvalidForm] = useState<boolean>(false);
+
     const [form] = Form.useForm<FeedbackForm>();
 
     const handleOk = async () => {
@@ -26,7 +27,7 @@ export const AddFeedbackModal = ({ onSubmit, open, setOpen, onCancel }: AddFeedb
 
     return (
         <Modal
-            title='Ваш отзыв'
+            title={<Typography.Title level={5}>Ваш отзыв</Typography.Title>}
             open={open}
             onOk={handleOk}
             onCancel={onCancel}

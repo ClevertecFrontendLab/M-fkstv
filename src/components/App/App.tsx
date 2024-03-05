@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ConfirmEmail } from '@components/ConfirmEmail';
 import {
@@ -28,7 +28,8 @@ export const App = () => {
     const user = useAppSelector((state) => state.user);
 
     useEffect(() => {
-        localStorage.getItem('token') ? dispatch(push('/main')) : dispatch(push('/auth'));
+        const token = localStorage.getItem('token');
+        token ? dispatch(push('/main')) : dispatch(push('/auth'));
     }, [dispatch]);
 
     return (

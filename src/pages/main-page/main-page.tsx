@@ -1,5 +1,5 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { Layout } from 'antd';
 
@@ -21,6 +21,13 @@ const routes = [
 ];
 
 export const MainPage: React.FC = () => {
+    const [params] = useSearchParams();
+
+    useEffect(() => {
+        const googleAuthToken = params.get('accessToken');
+
+        googleAuthToken && localStorage.setItem('token', googleAuthToken);
+    }, [params]);
     return (
         <>
             <Layout

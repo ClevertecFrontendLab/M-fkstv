@@ -1,4 +1,3 @@
-import { Button, Row, Space } from 'antd';
 import { useState } from 'react';
 
 import {
@@ -8,15 +7,19 @@ import {
 } from '@redux/api/feedbackApi';
 
 import { AddFeedbackModal } from '@components/AddFeedbackModal';
+import { FeedbackEmpty } from '@components/FeedbackEmpty';
+import { FeedbackFooter } from '@components/FeedbackFooter';
 import { FeedbackList } from '@components/FeedbackList';
+import { FeedbackSucces } from '@components/FeedbackSucces';
 import { Loader } from '@components/Loader';
 import { useSortByDate } from '@hooks/sort-by-date-hook';
-import { FeedbackFooter } from '@components/FeedbackFooter';
 
 export const Feedback = () => {
+    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery();
     const [showAll, setShowAll] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
-    const [postFeedback, { isSuccess }] = usePostFeedbackMutation();
+    const [postFeedbackSuccesopen, setpostFeedbackSuccesOpen] = useState<boolean>(false);
+    const [postFeedback, { isSuccess: postFeedbackSucces }] = usePostFeedbackMutation();
 
     const showModal = () => {
         setOpen(true);
@@ -27,14 +30,15 @@ export const Feedback = () => {
     };
 
     const set = async (val: FeedbackForm) => {
-        await postFeedback(val).unwrap();
+        try {
+            await postFeedback(val).unwrap();
+            // setOpen(false);
+            setpostFeedbackSuccesOpen(true);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    if (isSuccess) {
-        console.log(';adasdfjsnvkj');
-    }
-
-    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery();
     const sorted = useSortByDate(feedbacks);
 
     const dataToShow = showAll ? sorted : sorted?.slice(0, 4);
@@ -47,7 +51,14 @@ export const Feedback = () => {
 
     return (
         <>
+            {/* <FeedbackEmpty open={open} setOpen={setOpen} /> */}
             <FeedbackList feedbacks={dataToShow} />
+            <FeedbackSucces
+                open={postFeedbackSuccesopen}
+                onCancel={() => setpostFeedbackSuccesOpen(false)}
+                onSubmit={() => setpostFeedbackSuccesOpen(false)}
+            />
+
             <AddFeedbackModal
                 onSubmit={set}
                 open={open}
