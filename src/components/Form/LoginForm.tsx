@@ -65,7 +65,13 @@ export const LoginForm: React.FC = () => {
                 }).unwrap();
 
                 dispatch(push(location));
-                dispatch(setUser({ email: values.email, password: values.password }));
+                dispatch(
+                    setUser({
+                        email: values.email,
+                        password: values.password,
+                        user: token.accessToken,
+                    }),
+                );
                 values.remember
                     ? localStorage.setItem('token', token.accessToken)
                     : sessionStorage.setItem('token', token.accessToken);
@@ -134,7 +140,7 @@ export const LoginForm: React.FC = () => {
                     <Input.Password size='large' placeholder='Пароль' />
                 </Form.Item>
                 <Row className={styles.forgot}>
-                    <Form.Item name='remember' valuePropName='checked'>
+                    <Form.Item name='remember' valuePropName=''>
                         <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                     </Form.Item>
 

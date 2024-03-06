@@ -11,21 +11,27 @@ type FeedbackSuccesProps = ModalProps & {
 export const FeedbackSucces = ({ open, onSubmit, onCancel }: FeedbackSuccesProps) => {
     const dispatch = useAppDispatch();
     return (
-        <Modal open={open} onOk={onSubmit} onCancel={onCancel}>
+        <Modal
+            centered
+            maskClosable={true}
+            open={open}
+            onOk={onSubmit}
+            onCancel={onCancel}
+            footer={null}
+            closable={false}
+        >
             <Result
                 status='success'
-                title={<Typography.Title level={2}>pft,wf</Typography.Title>}
-                subTitle='сосамба'
+                title={<Typography.Title level={3}>Отзыв успешно опубликован</Typography.Title>}
                 extra={[
                     <Button
                         type='primary'
                         htmlType='submit'
                         block
                         size='large'
-                        // data-test-id='registration-enter-button'
-                        onClick={() => dispatch(push('/feedback'))}
+                        onClick={() => dispatch(push('/feedbacks'))}
                     >
-                        c
+                        Отлично
                     </Button>,
                 ]}
             ></Result>

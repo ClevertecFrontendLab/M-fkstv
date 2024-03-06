@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
-import { Route, Routes, useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import { ConfirmEmail } from '@components/ConfirmEmail';
 import {
@@ -10,25 +10,25 @@ import {
     ErrorResponse,
     ErrorUserExist,
 } from '@components/ErrorResponse';
-import { Layout } from '../Layuot/Layout';
-import { RegistrationPage } from '@pages/registration-page';
-import { RegistrationSuccess } from '@pages/registration-success';
-import { MainPage } from '@pages/main-page';
 import { PasswordChange } from '@components/Form';
 import { SuccesPassworChange } from '@components/ResultPassworChange';
 import { RootLayout } from '@components/RootLayout';
 import { LoginError } from '@pages/error-login';
 import { ResultError } from '@pages/error-result';
 import { Feedback } from '@pages/feedbacks';
+import { MainPage } from '@pages/main-page';
+import { RegistrationPage } from '@pages/registration-page';
+import { RegistrationSuccess } from '@pages/registration-success';
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
+import { Layout } from '../Layuot/Layout';
 
 export const App = () => {
     const dispatch = useAppDispatch();
-    const user = useAppSelector((state) => state.user);
+    const token = useAppSelector((state) => state.user.token);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
         token ? dispatch(push('/main')) : dispatch(push('/auth'));
     }, [dispatch]);
 
@@ -37,7 +37,7 @@ export const App = () => {
             <Routes>
                 <Route path='/' element={<MainPage />}>
                     <Route path='main' element={<RootLayout />} />
-                    <Route path='feedback' element={<Feedback />} />
+                    <Route path='feedbacks' element={<Feedback />} />
                 </Route>
 
                 <Route path='/' element={<Layout />}>

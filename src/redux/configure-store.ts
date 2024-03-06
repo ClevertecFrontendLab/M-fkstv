@@ -4,7 +4,7 @@ import { loginAPI } from './api/loginApi';
 import { feedbackApi } from './api/feedbackApi';
 
 import { createBrowserHistory } from 'history';
-import { userReducer } from './slices/user.slice';
+import { feedbackReducer, userReducer } from './slices/user.slice';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
     history: createBrowserHistory(),
@@ -14,6 +14,7 @@ const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHisto
 export const store = configureStore({
     reducer: combineReducers({
         user: userReducer,
+        feedback: feedbackReducer,
         router: routerReducer,
 
         [loginAPI.reducerPath]: loginAPI.reducer,

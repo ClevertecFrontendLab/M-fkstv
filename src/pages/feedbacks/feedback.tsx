@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     FeedbackForm,
@@ -13,13 +13,37 @@ import { FeedbackList } from '@components/FeedbackList';
 import { FeedbackSucces } from '@components/FeedbackSucces';
 import { Loader } from '@components/Loader';
 import { useSortByDate } from '@hooks/sort-by-date-hook';
+import { FeedbackError } from '@components/FeedbackError';
+import { Button, Modal, Result } from 'antd';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { push } from 'redux-first-history';
 
 export const Feedback = () => {
-    const { data: feedbacks, isFetching, isLoading } = useGetFeedbacksQuery();
+    const {
+        data: feedbacks,
+        isFetching,
+        isLoading,
+        isError: fetchError,
+        error,
+    } = useGetFeedbacksQuery();
     const [showAll, setShowAll] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
+    const [fetchErrorOpen, setfetchErrorOpen] = useState<boolean>(false);
     const [postFeedbackSuccesopen, setpostFeedbackSuccesOpen] = useState<boolean>(false);
-    const [postFeedback, { isSuccess: postFeedbackSucces }] = usePostFeedbackMutation();
+    const [postFeedbackErrorOpen, setPostpostFeedbackErrorOpen] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (error) {
+            if ('status' in error && error.status == 403) {
+                localStorage.removeItem('token');
+                dispatch(push('/auth'));
+            }
+        }
+    }, [dispatch, error]);
+
+    const [postFeedback, { isSuccess: postFeedbackSucces, isError: postFeedbackError }] =
+        usePostFeedbackMutation();
 
     const showModal = () => {
         setOpen(true);
@@ -29,13 +53,17 @@ export const Feedback = () => {
         setOpen(false);
     };
 
+    const goBack = () => {
+        dispatch(push('/main'));
+    };
+
     const set = async (val: FeedbackForm) => {
         try {
             await postFeedback(val).unwrap();
-            // setOpen(false);
+
             setpostFeedbackSuccesOpen(true);
         } catch (error) {
-            console.log(error);
+            setPostpostFeedbackErrorOpen(true);
         }
     };
 
@@ -49,15 +77,51 @@ export const Feedback = () => {
         setShowAll(!showAll);
     };
 
+    const tryAgain = () => {
+        setPostpostFeedbackErrorOpen(false);
+        setOpen(true);
+    };
+
     return (
         <>
-            {/* <FeedbackEmpty open={open} setOpen={setOpen} /> */}
+            {fetchError && (
+                <Modal
+                    open={true}
+                    onCancel={goBack}
+                    footer={null}
+                    centered
+                    closable={false}
+                    maskStyle={{ background: '#799cd480', backdropFilter: 'blur(5px)' }}
+                >
+                    <Result
+                        status='500'
+                        title='Что-то пошло не так'
+                        subTitle='Произошла ошибка, попробуйте ещё раз.'
+                        extra={
+                            <Button type='primary' onClick={goBack}>
+                                Назад
+                            </Button>
+                        }
+                    />
+                </Modal>
+            )}
+            {!feedbacks?.length && <FeedbackEmpty open={open} setOpen={setOpen} />}
             <FeedbackList feedbacks={dataToShow} />
-            <FeedbackSucces
-                open={postFeedbackSuccesopen}
-                onCancel={() => setpostFeedbackSuccesOpen(false)}
-                onSubmit={() => setpostFeedbackSuccesOpen(false)}
-            />
+            {postFeedbackSucces && (
+                <FeedbackSucces
+                    open={postFeedbackSuccesopen}
+                    onCancel={() => setpostFeedbackSuccesOpen(false)}
+                    onSubmit={() => setpostFeedbackSuccesOpen(false)}
+                />
+            )}
+
+            {postFeedbackError && (
+                <FeedbackError
+                    open={postFeedbackErrorOpen}
+                    onSubmit={tryAgain}
+                    onCancel={() => setPostpostFeedbackErrorOpen(false)}
+                />
+            )}
 
             <AddFeedbackModal
                 onSubmit={set}
@@ -65,7 +129,9 @@ export const Feedback = () => {
                 setOpen={setOpen}
                 onCancel={handleCancel}
             />
-            <FeedbackFooter showAll={showAll} onClick={showModal} onShowAll={nahdleShowAll} />
+            {feedbacks?.length && (
+                <FeedbackFooter showAll={showAll} onClick={showModal} onShowAll={nahdleShowAll} />
+            )}
         </>
     );
 };

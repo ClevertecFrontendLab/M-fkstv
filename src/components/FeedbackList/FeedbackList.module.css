@@ -1,12 +1,6 @@
-.root {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 24px;
-}
-
 .root :global(.ant-list-items) {
-    max-height: 902px;
+    padding: 24px;
+    max-height: 650px;
     overflow-y: auto;
 }
 
@@ -65,4 +59,32 @@
     font-weight: 400;
     line-height: 15.6px;
     letter-spacing: -1px;
+}
+
+@media (max-width: 600px) {
+    .item {
+        margin-bottom: 16px;
+    }
+
+    .avatar {
+        width: min-content;
+        flex-direction: row;
+        margin-bottom: 12px;
+    }
+
+    .avatar :global(.ant-typography) {
+        margin-left: 12px;
+        margin-top: 0;
+        text-align: left;
+    }
+
+    .item :global(.ant-comment-inner) {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .item :global(.ant-comment-content-author) {
+        display: flex;
+        align-items: end;
+    }
 }

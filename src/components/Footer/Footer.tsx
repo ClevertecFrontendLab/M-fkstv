@@ -11,7 +11,11 @@ export const Footer = () => {
                 Смотреть отзывы
             </Button> */}
 
-            <Link to={'/feedback'} className={styles.reviews} data-test-id='see-reviews'>
+            <Link
+                to={localStorage.getItem('token') ? '/feedbacks' : '/auth'}
+                className={styles.reviews}
+                data-test-id='see-reviews'
+            >
                 Смотреть отзывы
             </Link>
             <div className={styles.apps}>

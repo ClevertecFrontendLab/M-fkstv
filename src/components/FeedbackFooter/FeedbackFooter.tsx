@@ -1,4 +1,4 @@
-import { Button, Row, Space } from 'antd';
+import { Button, Row, Grid, Space } from 'antd';
 import styles from './FeedbackFooter.module.css';
 
 type FeedbackFooterProps = {
@@ -8,37 +8,46 @@ type FeedbackFooterProps = {
 };
 
 export const FeedbackFooter: React.FC<FeedbackFooterProps> = ({ onClick, showAll, onShowAll }) => {
+    const { useBreakpoint } = Grid;
+    const breakpoint = useBreakpoint();
+
     return (
-        <Row>
-            <Space
+        <Space
+            direction={breakpoint.xs ? 'vertical' : 'horizontal'}
+            style={{
+                marginTop: 'auto',
+                marginBottom: 48,
+                paddingLeft: 24,
+                paddingRight: breakpoint.xs ? 24 : 0,
+            }}
+            size={8}
+        >
+            <Button
+                onClick={onClick}
                 style={{
-                    paddingLeft: 24,
+                    fontSize: 14,
                 }}
-                size={8}
+                block={breakpoint.xs}
+                className={styles.btn}
+                size='large'
+                type='primary'
+                data-test-id='write-review'
             >
-                <Button
-                    onClick={onClick}
-                    style={{
-                        fontSize: 14,
-                    }}
-                    className={styles.btn}
-                    size='large'
-                    type='primary'
-                >
-                    Написать отзыв
-                </Button>
-                <Button
-                    onClick={onShowAll}
-                    style={{
-                        fontSize: 16,
-                    }}
-                    className={styles.btn}
-                    size='large'
-                    type='link'
-                >
-                    {!showAll ? 'Развернуть все отзывы' : 'Скрыть отзывы'}
-                </Button>
-            </Space>
-        </Row>
+                Написать отзыв
+            </Button>
+            <Button
+                onClick={onShowAll}
+                style={{
+                    fontSize: 16,
+                }}
+                block={breakpoint.xs}
+                className={styles.btn}
+                size='large'
+                type='link'
+                data-test-id='all-reviews-button'
+            >
+                {!showAll ? 'Развернуть все отзывы' : 'Скрыть отзывы'}
+            </Button>
+        </Space>
     );
 };

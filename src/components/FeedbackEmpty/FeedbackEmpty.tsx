@@ -1,7 +1,13 @@
 import { Button, Typography } from 'antd';
+import { Dispatch, SetStateAction } from 'react';
 import styles from './FeedbackEmpty.module.css';
 
-export const FeedbackEmpty = ({ open, setOpen }) => {
+type FeedbackEmptyProps = {
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export const FeedbackEmpty = ({ open, setOpen }: FeedbackEmptyProps) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.root}>

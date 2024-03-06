@@ -4,13 +4,12 @@
     align-items: center;
     justify-content: center;
     height: 95vh;
+    padding-inline: 24px;
 }
 
 .root {
-    margin-inline: auto;
+    width: 100%;
     margin-bottom: 20px;
-
-    max-width: 1184px;
     padding: 56px 130px;
     background-color: #fff;
     text-align: center;
@@ -26,12 +25,13 @@
 }
 
 .text {
-    padding-inline: 201px;
     font-family: Inter;
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
     color: #8c8c8c;
+    max-width: 520px;
+    margin: auto;
 }
 
 .button {

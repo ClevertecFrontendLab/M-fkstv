@@ -1,5 +1,5 @@
-import { Itoken } from '@redux/api/loginApi';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Itoken } from '../../types/types';
 
 interface IUser {
     email: string;
@@ -10,7 +10,7 @@ interface IUser {
 const initialState: IUser = {
     email: '',
     password: '',
-    token : '',
+    token: '',
 };
 
 export const userSlice = createSlice({
@@ -28,6 +28,32 @@ export const userSlice = createSlice({
     },
 });
 
+type Feedback = {
+    rating: number;
+    message: string;
+};
+
+const feedbackState: Feedback = {
+    rating: 0,
+    message: '',
+};
+
+export const feedbackSlice = createSlice({
+    name: 'feedback',
+    initialState: feedbackState,
+    reducers: {
+        setFeedback(state, action: PayloadAction<Feedback>) {
+            return action.payload;
+        },
+        reset(state) {
+            state.message;
+            state.rating;
+        },
+    },
+});
+
 export const { setUser, removeUser } = userSlice.actions;
+export const { setFeedback } = feedbackSlice.actions;
 
 export const userReducer = userSlice.reducer;
+export const feedbackReducer = feedbackSlice.reducer;

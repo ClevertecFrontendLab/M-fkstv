@@ -1,0 +1,13 @@
+.root {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.title {
+}
+
+.button {
+}

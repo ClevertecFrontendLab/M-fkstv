@@ -1,8 +1,7 @@
 import { Rating } from '@components/Rating';
-import { Avatar, Comment, List, Typography } from 'antd';
 import { Feedback } from '@redux/api/feedbackApi';
+import { Avatar, Comment, List, Typography } from 'antd';
 import styles from './FeedbackList.module.css';
-import { useSortByDate } from '@hooks/sort-by-date-hook';
 
 type FeedbackListProps = {
     feedbacks: Feedback[];
@@ -15,7 +14,6 @@ export const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
             day: '2-digit',
             year: 'numeric',
         });
-    // const sortedData = useSortByDate(feedbacks);
 
     return (
         <List
@@ -27,17 +25,16 @@ export const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
                     <Comment
                         avatar={
                             <div className={styles.avatar}>
-                                <Avatar src={item.imageSrc} size={42} alt={'###'} />
-                                {/* <Typography.Text>Вероника Киверова</Typography.Text> */}
-                                <Typography.Text>{item.fullname}</Typography.Text>
+                                <Avatar src={item.imageSrc} size={42} alt={item.fullname} />
+
+                                <Typography.Text>
+                                    {item.fullname}ADADC fawkeblkfnavkd
+                                </Typography.Text>
                             </div>
                         }
                         author={<Rating rating={item.rating} disabled />}
                         datetime={formattedDate(new Date(item.createdAt))}
                         content={item.message}
-                        // content={
-                        //     'Я очень довольна этим приложением! Оно помогает мне следить за своим здоровьем и физической формой, предлагая разнообразные упражнения и питание. Я люблю, что приложение адаптируется к моему уровню и целям, и дает мне полезные советы и обратную связь. Я рекомендую это приложение всем, кто хочет улучшить свою жизнь!'
-                        // }
                     />
                 </div>
             )}
