@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from 'react';
 
 type FeedbackErrorProps = ModalProps & {
     open: boolean;
-    setOpen?: Dispatch<SetStateAction<boolean>>;
     onSubmit: () => void;
+    setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
 import styles from './FeedbackError.style.module.css';

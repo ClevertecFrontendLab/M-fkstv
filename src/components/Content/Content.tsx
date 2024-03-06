@@ -14,13 +14,6 @@ export const Content = () => {
     return (
         <Layout.Content className={styles.content}>
             <div className={styles.cards}>
-                {/* <List   // TODO: сделать через компонент antd
-                    bordered={false}
-                    dataSource={list}
-                    header={' C CleverFit ты сможешь'}
-                    renderItem={(item) => <List.Item>{item}</List.Item>}
-                ></List> */}
-
                 <ul>
                     C CleverFit ты сможешь:{' '}
                     {list.map((item, index) => {
