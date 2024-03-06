@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { Layout } from 'antd';
 
-import { Content } from '@components/Content';
-import { Header } from '@components/Header';
 import { Sider } from '@components/Sider';
+
 import 'antd/dist/antd.css';
 import './main-page.css';
-import { Footer } from '@components/Footer';
+import { Breadcrumbs } from '@components/BreadCrumbs/BreadCrumbs';
+
+const routes = [
+    {
+        path: 'main',
+        breadcrumbName: 'Главная',
+    },
+    {
+        path: 'feedback',
+        breadcrumbName: 'Отзывы пользователей',
+    },
+];
 
 export const MainPage: React.FC = () => {
+    const [params] = useSearchParams();
+
+    useEffect(() => {
+        const googleAuthToken = params.get('accessToken');
+
+        googleAuthToken && localStorage.setItem('token', googleAuthToken);
+    }, [params]);
     return (
         <>
             <Layout
@@ -19,9 +37,8 @@ export const MainPage: React.FC = () => {
             >
                 <Sider />
                 <Layout className='site-layout'>
-                    <Header />
-                    <Content />
-                    <Footer />
+                    <Breadcrumbs routes={routes} />
+                    <Outlet />
                 </Layout>
             </Layout>
         </>

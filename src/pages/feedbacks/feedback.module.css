@@ -1,0 +1,62 @@
+/* .root {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+}
+
+.item {
+    background-color: #fff;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.item :global(.ant-comment-inner) {
+    padding: 0;
+}
+.item :global(.ant-comment-content-detail) {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.avatar {
+    width: 174px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar :global(.ant-typography) {
+    width: min-content;
+    margin-top: 12px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: center;
+    word-break: normal;
+}
+.item :global(.ant-comment-content-author-name) {
+    padding-right: 12px;
+}
+.item :global(.ant-comment-content-author) {
+    margin-bottom: 10px;
+}
+.item :global(.ant-comment-content-detail) {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #8c8c8c;
+}
+.item :global(.ant-comment-content-author-time) {
+    color: #bfbfbf;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15.6px;
+} */

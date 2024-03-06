@@ -1,37 +1,45 @@
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { MainPage } from '@pages/main-page';
-import { RegistrationPage } from '@pages/registration-page';
-import { RegistrationSuccess } from '@pages/registration-success';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from '../Layuot/Layout';
 
-import { push } from 'redux-first-history';
-import { HistoryRouter } from 'redux-first-history/rr6';
-import { LoginError } from '@pages/error-login';
-import { ResultError } from '@pages/error-result';
 import { ConfirmEmail } from '@components/ConfirmEmail';
 import {
     ErrorCheckEmail,
     ErrorPasswordChange,
-    ErrorUserExist,
     ErrorResponse,
+    ErrorUserExist,
 } from '@components/ErrorResponse';
 import { PasswordChange } from '@components/Form';
 import { SuccesPassworChange } from '@components/ResultPassworChange';
+import { RootLayout } from '@components/RootLayout';
+import { LoginError } from '@pages/error-login';
+import { ResultError } from '@pages/error-result';
+import { Feedback } from '@pages/feedbacks';
+import { MainPage } from '@pages/main-page';
+import { RegistrationPage } from '@pages/registration-page';
+import { RegistrationSuccess } from '@pages/registration-success';
+import { push } from 'redux-first-history';
+import { HistoryRouter } from 'redux-first-history/rr6';
+import { Layout } from '../Layuot/Layout';
 
 export const App = () => {
     const dispatch = useAppDispatch();
+    const token = useAppSelector((state) => state.user.token);
 
     useEffect(() => {
-        localStorage.getItem('token') ? dispatch(push('/main')) : dispatch(push('/auth'));
+        // const token = localStorage.getItem('token');
+        token ? dispatch(push('/main')) : dispatch(push('/auth'));
     }, [dispatch]);
 
     return (
         <HistoryRouter history={history}>
             <Routes>
-                <Route path='main' element={<MainPage />} />
+                <Route path='/' element={<MainPage />}>
+                    <Route path='main' element={<RootLayout />} />
+                    <Route path='feedbacks' element={<Feedback />} />
+                </Route>
+
                 <Route path='/' element={<Layout />}>
                     <Route path='auth' element={<RegistrationPage mode='auth' />} />
                     <Route path='auth/confirm-email' element={<ConfirmEmail />} />

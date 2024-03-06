@@ -1,5 +1,5 @@
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
-import { Button, Layout, List, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 
 import styles from './Content.module.css';
 
@@ -14,37 +14,12 @@ export const Content = () => {
     return (
         <Layout.Content className={styles.content}>
             <div className={styles.cards}>
-                {/* <List
-                    bordered={false}
-                    dataSource={list}
-                    header={' C CleverFit ты сможешь'}
-                    renderItem={(item) => <List.Item>{item}</List.Item>}
-                ></List> */}
-
                 <ul>
                     C CleverFit ты сможешь:{' '}
                     {list.map((item, index) => {
                         return <li key={index}>{item}</li>;
                     })}
                 </ul>
-                {/* <ul>
-                    C CleverFit ты сможешь:
-                    <li>
-                        — планировать свои тренировки на календаре,выбирая тип и уровень нагрузки;
-                    </li>
-                    <li>
-                        — отслеживать свои достижения в разделе статистики, сравнивая свои
-                        результаты c нормами и рекордами;
-                    </li>
-                    <li>
-                        — создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы
-                        о тренировках;
-                    </li>
-                    <li>
-                        — выполнять расписанные тренировки для разных частей тела, следуя подробным
-                        инструкциям и советам профессиональных тренеров.
-                    </li>
-                </ul> */}
             </div>
 
             <div className={styles.cards}>

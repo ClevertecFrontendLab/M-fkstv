@@ -23,6 +23,21 @@
     flex-direction: column;
 }
 
+.root :global(.ant-result-title) {
+    padding-inline: 48px;
+}
+
+.root :global(.ant-result-title .ant-typography) {
+    margin-bottom: 0;
+}
+
+.root :global(.ant-result-subtitle .ant-typography) {
+    line-height: 16px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #8c8c8c;
+}
+
 .root :global(.ant-typography) {
     font-weight: 500;
     font-size: 24px;
@@ -33,10 +48,15 @@
 }
 
 .root :global(.ant-result-content) {
+    margin-top: 0;
     background-color: #fff;
 }
+
+.root :global(.ant-result-subtitle) {
+    line-height: 16px;
+}
 .container {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
 }
 
 .root :global(.ant-result-content .ant-typography) {
@@ -47,9 +67,15 @@
     color: #8c8c8c;
 }
 
+.container {
+    gap: 12px;
+}
+
 .character {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
+    width: 40px;
+    height: 40px;
 }
 
 .characterSelected {
@@ -58,6 +84,8 @@
 
 .characterError {
     border-color: red;
+    width: 40px;
+    height: 40px;
 }
 
 .characterInactive {
@@ -79,10 +107,6 @@
         line-height: 31.2px;
         margin-bottom: 2px;
         text-align: center;
-    }
-
-    .root :global(.ant-result-subtitle) {
-        line-height: 18.2px;
     }
 
     .root :global(.ant-result-content) {

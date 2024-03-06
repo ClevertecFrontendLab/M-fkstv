@@ -2,13 +2,22 @@ import { Button, Divider, Layout } from 'antd';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 
 import styles from './Footer.module.css';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
     return (
         <Layout.Footer className={styles.footer}>
-            <Button type='link' className={styles.reviews}>
+            {/* <Button type='link' className={styles.reviews}>
                 Смотреть отзывы
-            </Button>
+            </Button> */}
+
+            <Link
+                to={localStorage.getItem('token') ? '/feedbacks' : '/auth'}
+                className={styles.reviews}
+                data-test-id='see-reviews'
+            >
+                Смотреть отзывы
+            </Link>
             <div className={styles.apps}>
                 <div className={styles.top}>
                     <Button>

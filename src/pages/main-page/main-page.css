@@ -9,7 +9,7 @@
 }
 
 .ant-layout.site-layout {
-    min-height: 1024px;
+    min-height: 100vh;
     background-image: url('../../assets/images/Main_page_light.png');
     background-repeat: no-repeat;
     background-position: right top;

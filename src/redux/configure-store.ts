@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createReduxHistoryContext } from 'redux-first-history';
 import { loginAPI } from './api/loginApi';
+import { feedbackApi } from './api/feedbackApi';
 
 import { createBrowserHistory } from 'history';
-import { userReducer } from './slices/user.slice';
+import { feedbackReducer, userReducer } from './slices/user.slice';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
     history: createBrowserHistory(),
@@ -13,12 +14,14 @@ const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHisto
 export const store = configureStore({
     reducer: combineReducers({
         user: userReducer,
+        feedback: feedbackReducer,
         router: routerReducer,
 
         [loginAPI.reducerPath]: loginAPI.reducer,
+        [feedbackApi.reducerPath]: feedbackApi.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(loginAPI.middleware).concat(routerMiddleware),
+        getDefaultMiddleware().concat(loginAPI.middleware).concat(feedbackApi.middleware).concat(routerMiddleware),
 });
 
 export const history = createReduxHistory(store);

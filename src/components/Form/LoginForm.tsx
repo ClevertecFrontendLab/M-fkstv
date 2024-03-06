@@ -1,12 +1,14 @@
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { push } from 'redux-first-history';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setUser } from '@redux/slices/user.slice';
-import { Itoken, useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
+import { useCheckEmailMutation, useLoginMutation } from '../../redux/api/loginApi';
+
+import { Itoken } from '../../types/types';
 
 import { Loader } from '@components/Loader';
 
@@ -16,18 +18,13 @@ import { formValues } from '../../types/types';
 import styles from './LoginForm.module.css';
 
 export const LoginForm: React.FC = () => {
-    const [email, setEmail] = useState<string>('');
     const [form] = Form.useForm();
-
+    const values: formValues = form.getFieldsValue(true);
     const [login, { isSuccess, isLoading }] = useLoginMutation();
     const [checkEmail] = useCheckEmailMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
     const prevLocation = useAppSelector((state) => state.router.previousLocations);
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
 
     const validateEmail = (email: string): boolean => {
         return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
@@ -51,9 +48,13 @@ export const LoginForm: React.FC = () => {
 
     useEffect(() => {
         if (prevLocation && prevLocation[1]?.location?.pathname === '/result/error-check-email') {
-            handleCheckEmail(email);
+            handleCheckEmail(values.email);
         }
-    }, [email, handleCheckEmail, prevLocation]);
+    }, [handleCheckEmail, prevLocation, values.email]);
+
+    const handleGoogleAuth = () => {
+        window.location.href = 'https://marathon-api.clevertec.ru/auth/google';
+    };
 
     const onFinish = useCallback(
         async (values: formValues) => {
@@ -64,7 +65,13 @@ export const LoginForm: React.FC = () => {
                 }).unwrap();
 
                 dispatch(push(location));
-                dispatch(setUser({ email: values.email, password: values.password }));
+                dispatch(
+                    setUser({
+                        email: values.email,
+                        password: values.password,
+                        user: token.accessToken,
+                    }),
+                );
                 values.remember
                     ? localStorage.setItem('token', token.accessToken)
                     : sessionStorage.setItem('token', token.accessToken);
@@ -89,6 +96,9 @@ export const LoginForm: React.FC = () => {
                 className={styles.root}
             >
                 <Form.Item
+                    style={{
+                        marginBottom: 32,
+                    }}
                     data-test-id='login-email'
                     name='email'
                     rules={[
@@ -99,12 +109,7 @@ export const LoginForm: React.FC = () => {
                         },
                     ]}
                 >
-                    <Input
-                        onChange={onChange}
-                        addonBefore='e-mail:'
-                        size='large'
-                        placeholder='Email'
-                    />
+                    <Input addonBefore='e-mail:' size='large' />
                 </Form.Item>
 
                 <Form.Item
@@ -131,12 +136,11 @@ export const LoginForm: React.FC = () => {
                         }),
                     ]}
                     name='password'
-                    // help='Пароль не менее 8 символов,с заглавной буквой и цифрой'
                 >
                     <Input.Password size='large' placeholder='Пароль' />
                 </Form.Item>
                 <Row className={styles.forgot}>
-                    <Form.Item name='remember' valuePropName='checked'>
+                    <Form.Item name='remember' valuePropName=''>
                         <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                     </Form.Item>
 
@@ -145,13 +149,19 @@ export const LoginForm: React.FC = () => {
                             type='link'
                             className={styles.span}
                             data-test-id='login-forgot-button'
-                            onClick={() => validateEmail(email) && handleCheckEmail(email)}
+                            onClick={() =>
+                                validateEmail(values.email) && handleCheckEmail(values.email)
+                            }
                         >
                             Забыли пароль?
                         </Button>
                     </Form.Item>
                 </Row>
-                <Form.Item>
+                <Form.Item
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
                     <Button
                         size='large'
                         block
@@ -163,7 +173,13 @@ export const LoginForm: React.FC = () => {
                     </Button>
                 </Form.Item>
                 <Form.Item>
-                    <Button size='large' htmlType='submit' block icon={<GooglePlusOutlined />}>
+                    <Button
+                        onClick={handleGoogleAuth}
+                        size='large'
+                        htmlType='submit'
+                        block
+                        icon={<GooglePlusOutlined />}
+                    >
                         Войти через Google
                     </Button>
                 </Form.Item>
