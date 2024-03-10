@@ -1,5 +1,6 @@
 import { Button, Result, Typography } from 'antd';
 
+import { PATH } from '@constants/endpoints';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 import styles from './ErrrorResponse.module.css';
@@ -21,7 +22,7 @@ export const ErrorResponse: React.FC = () => {
                     block
                     size='large'
                     data-test-id='check-retry-button'
-                    onClick={() => dispatch(push('/auth'))}
+                    onClick={() => dispatch(push(PATH.AUTH))}
                 >
                     Повторить
                 </Button>,

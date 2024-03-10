@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Itoken } from '../../types/types';
 
 interface IUser {
     email: string;
     password: string;
-    token?: Itoken | '';
+    token: string;
 }
 
 const initialState: IUser = {

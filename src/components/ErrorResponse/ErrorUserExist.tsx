@@ -3,6 +3,7 @@ import { Button, Result, Typography } from 'antd';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 
+import { PATH } from '@constants/endpoints';
 import styles from './ErrrorResponse.module.css';
 
 export const ErrorUserExist: React.FC = () => {
@@ -22,7 +23,7 @@ export const ErrorUserExist: React.FC = () => {
                     block
                     size='large'
                     data-test-id='registration-back-button'
-                    onClick={() => dispatch(push('/auth/registration'))}
+                    onClick={() => dispatch(push(PATH.AUTH_REG))}
                 >
                     Повторить
                 </Button>,

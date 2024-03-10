@@ -16,6 +16,7 @@ import { isFetchBaseQueryError } from '../../types/errorTypes';
 import { formValues } from '../../types/types';
 
 import styles from './LoginForm.module.css';
+import { PATH } from '@constants/endpoints';
 
 export const LoginForm: React.FC = () => {
     const [form] = Form.useForm();
@@ -34,12 +35,12 @@ export const LoginForm: React.FC = () => {
         async (email: string) => {
             try {
                 await checkEmail({ email }).unwrap();
-                dispatch(push('/auth/confirm-email', email));
+                dispatch(push(PATH.AUTH_CONFIRM_EMAIL, email));
             } catch (error) {
                 if (isFetchBaseQueryError(error) && error.data?.message === 'Email не найден') {
-                    dispatch(push('/result/error-check-email-no-exist', error));
+                    dispatch(push(PATH.ERROR_EMAIL_NO_EXIST, error));
                 } else {
-                    dispatch(push('/result/error-check-email', error));
+                    dispatch(push(PATH.ERROR_EMAIL, error));
                 }
             }
         },
@@ -69,7 +70,7 @@ export const LoginForm: React.FC = () => {
                     setUser({
                         email: values.email,
                         password: values.password,
-                        user: token.accessToken,
+                        token: token.accessToken,
                     }),
                 );
                 values.remember
@@ -140,18 +141,19 @@ export const LoginForm: React.FC = () => {
                     <Input.Password size='large' placeholder='Пароль' />
                 </Form.Item>
                 <Row className={styles.forgot}>
-                    <Form.Item name='remember' valuePropName=''>
+                    <Form.Item name='remember' valuePropName='checked'>
                         <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                     </Form.Item>
 
-                    <Form.Item shouldUpdate>
+                    <Form.Item>
                         <Button
                             type='link'
                             className={styles.span}
                             data-test-id='login-forgot-button'
-                            onClick={() =>
-                                validateEmail(values.email) && handleCheckEmail(values.email)
-                            }
+                            onClick={() => {
+                                validateEmail(values.email);
+                                handleCheckEmail(values.email);
+                            }}
                         >
                             Забыли пароль?
                         </Button>

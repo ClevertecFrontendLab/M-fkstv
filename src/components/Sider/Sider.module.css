@@ -1,3 +1,6 @@
+:global(.ant-menu-item-selected span svg path) {
+    fill: #2f54eb;
+}
 .logo {
     padding: 44px 46px 54px 30px;
 }

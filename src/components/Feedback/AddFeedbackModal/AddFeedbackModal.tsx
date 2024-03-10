@@ -2,11 +2,10 @@ import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Modal, ModalProps, Rate, Typography } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-import rateStyles from '../Rating/Rating.module.css';
-import styles from './AddFeedbackModal.module.css';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setFeedback } from '@redux/slices/user.slice';
-import { number } from 'react-admin';
+import rateStyles from '@components/Rating/Rating.module.css';
+import styles from './AddFeedbackModal.module.css';
 
 type AddFeedbackModalProps = ModalProps & {
     open: boolean;
@@ -36,7 +35,12 @@ export const AddFeedbackModal = ({ onSubmit, open, setOpen, onCancel }: AddFeedb
 
     const setRating = (rating: number) => {
         setvalidForm(true);
-        dispatch(setFeedback({ rating: rating }));
+        dispatch(
+            setFeedback({
+                rating: rating,
+                message: '',
+            }),
+        );
     };
 
     return (

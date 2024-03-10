@@ -9,6 +9,7 @@ import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { useConfirmEmailMutation } from '@redux/api/loginApi';
 
 import styles from './ConfirmEmail.module.css';
+import { PATH } from '@constants/endpoints';
 
 export const ConfirmEmail: React.FC = () => {
     const email = useLocation().state;
@@ -32,7 +33,7 @@ export const ConfirmEmail: React.FC = () => {
 
     if (isLoading) return <Loader data-test-id='loader' />;
 
-    if (isSuccess) dispatch(push('/auth/change-password', { prevLocation: location.pathname }));
+    if (isSuccess) dispatch(push(PATH.AUTH_CHANGE_PASS, { prevLocation: location.pathname }));
 
     return (
         <Result

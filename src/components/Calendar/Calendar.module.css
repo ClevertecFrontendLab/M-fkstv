@@ -1,0 +1,11 @@
+.root {
+    padding: 24px;
+    background-color: #f0f5ff;
+}
+
+.root :global(.ant-picker-calendar-header) {
+    background-color: #f0f5ff;
+}
+:global(.ant-select-arrow) {
+    color: #000;
+}

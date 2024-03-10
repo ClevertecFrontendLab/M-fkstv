@@ -29,6 +29,7 @@
     font-weight: 400;
     font-size: 14px;
     margin-top: 6px;
+    margin-left: auto;
 
     &:hover {
         background-color: transparent;

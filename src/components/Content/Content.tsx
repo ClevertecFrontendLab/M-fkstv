@@ -2,8 +2,12 @@ import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons'
 import { Button, Layout, Typography } from 'antd';
 
 import styles from './Content.module.css';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { push } from 'redux-first-history';
+import { PATH } from '@constants/endpoints';
 
 export const Content = () => {
+    const dispatch = useAppDispatch();
     const list = [
         ' — планировать свои тренировки на календаре,выбирая тип и уровень нагрузки;',
         ' — отслеживать свои достижения в разделе статистики, сравнивая свои результаты c нормами и рекордами;',
@@ -45,6 +49,7 @@ export const Content = () => {
                     </div>
 
                     <Button
+                        onClick={() => dispatch(push(PATH.CALENDAR))}
                         className={styles.button}
                         icon={<CalendarTwoTone twoToneColor={['#2F54EB', '#2F54EB']} />}
                     >

@@ -6,15 +6,17 @@ import {
     usePostFeedbackMutation,
 } from '@redux/api/feedbackApi';
 
-import { AddFeedbackModal } from '@components/AddFeedbackModal';
-import { FeedbackEmpty } from '@components/FeedbackEmpty';
-import { FeedbackFooter } from '@components/FeedbackFooter';
-import { FeedbackList } from '@components/FeedbackList';
-import { FeedbackSucces } from '@components/FeedbackSucces';
+import { AddFeedbackModal } from '@components/Feedback/AddFeedbackModal';
+import {
+    FeedbackFooter,
+    FeedbackError,
+    FeedbackSucces,
+    FeedbackServerError,
+    FeedbackList,
+    FeedbackEmpty,
+} from '@components/Feedback';
 import { Loader } from '@components/Loader';
 import { useSortByDate } from '@hooks/sort-by-date-hook';
-import { FeedbackError } from '@components/FeedbackError';
-import { Button, Modal, Result } from 'antd';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 
@@ -26,9 +28,12 @@ export const Feedback = () => {
         isError: fetchError,
         error,
     } = useGetFeedbacksQuery();
+
+    const [postFeedback, { isSuccess: postFeedbackSucces, isError: postFeedbackError }] =
+        usePostFeedbackMutation();
+
     const [showAll, setShowAll] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
-    const [fetchErrorOpen, setfetchErrorOpen] = useState<boolean>(false);
     const [postFeedbackSuccesopen, setpostFeedbackSuccesOpen] = useState<boolean>(false);
     const [postFeedbackErrorOpen, setPostpostFeedbackErrorOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch();
@@ -41,9 +46,6 @@ export const Feedback = () => {
             }
         }
     }, [dispatch, error]);
-
-    const [postFeedback, { isSuccess: postFeedbackSucces, isError: postFeedbackError }] =
-        usePostFeedbackMutation();
 
     const showModal = () => {
         setOpen(true);
@@ -71,8 +73,6 @@ export const Feedback = () => {
 
     const dataToShow = showAll ? sorted : sorted?.slice(0, 4);
 
-    if (isLoading || isFetching) return <Loader />;
-
     const nahdleShowAll = () => {
         setShowAll(!showAll);
     };
@@ -82,29 +82,10 @@ export const Feedback = () => {
         setOpen(true);
     };
 
+    if (isLoading || isFetching) return <Loader />;
     return (
         <>
-            {fetchError && (
-                <Modal
-                    open={true}
-                    onCancel={goBack}
-                    footer={null}
-                    centered
-                    closable={false}
-                    maskStyle={{ background: '#799cd480', backdropFilter: 'blur(5px)' }}
-                >
-                    <Result
-                        status='500'
-                        title='Что-то пошло не так'
-                        subTitle='Произошла ошибка, попробуйте ещё раз.'
-                        extra={
-                            <Button type='primary' onClick={goBack}>
-                                Назад
-                            </Button>
-                        }
-                    />
-                </Modal>
-            )}
+            {fetchError && <FeedbackServerError open={true} onSubmit={goBack} onCancel={goBack} />}
             {!feedbacks?.length && <FeedbackEmpty open={open} setOpen={setOpen} />}
             <FeedbackList feedbacks={dataToShow} />
             {postFeedbackSucces && (

@@ -1,8 +1,9 @@
 import { Button, Result, Typography } from 'antd';
-
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { push } from 'redux-first-history';
 import { useLocation } from 'react-router-dom';
+import { push } from 'redux-first-history';
+
+import { PATH } from '@constants/endpoints';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import styles from './ErrrorResponse.module.css';
 
 export const ErrorPasswordChange: React.FC = () => {
@@ -23,7 +24,7 @@ export const ErrorPasswordChange: React.FC = () => {
                     size='large'
                     data-test-id='change-retry-button'
                     onClick={() =>
-                        dispatch(push('/auth/change-password', { prevLocation: location.pathname }))
+                        dispatch(push(PATH.AUTH_CHANGE_PASS, { prevLocation: location.pathname }))
                     }
                 >
                     Повторить

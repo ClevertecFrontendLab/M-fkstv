@@ -1,4 +1,4 @@
-import { Button, Row, Grid, Space } from 'antd';
+import { Button, Grid, Space } from 'antd';
 import styles from './FeedbackFooter.module.css';
 
 type FeedbackFooterProps = {

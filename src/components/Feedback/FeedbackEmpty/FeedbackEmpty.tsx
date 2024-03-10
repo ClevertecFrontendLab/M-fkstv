@@ -7,7 +7,7 @@ type FeedbackEmptyProps = {
     setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const FeedbackEmpty = ({ open, setOpen }: FeedbackEmptyProps) => {
+export const FeedbackEmpty = ({ open, setOpen }: FeedbackEmptyProps) => (
     <div className={styles.wrapper}>
         <div className={styles.root}>
             <Typography.Title level={3} className={styles.title}>
@@ -27,5 +27,5 @@ export const FeedbackEmpty = ({ open, setOpen }: FeedbackEmptyProps) => {
         >
             Написать отзыв
         </Button>
-    </div>;
-};
+    </div>
+);

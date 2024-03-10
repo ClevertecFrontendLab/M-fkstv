@@ -1,7 +1,4 @@
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-
 import { Button, Modal, ModalProps, Result, Typography } from 'antd';
-import { push } from 'redux-first-history';
 
 type FeedbackSuccesProps = ModalProps & {
     open: boolean;
@@ -9,7 +6,6 @@ type FeedbackSuccesProps = ModalProps & {
 };
 
 export const FeedbackSucces = ({ open, onSubmit, onCancel }: FeedbackSuccesProps) => {
-    const dispatch = useAppDispatch();
     return (
         <Modal
             centered
@@ -24,13 +20,7 @@ export const FeedbackSucces = ({ open, onSubmit, onCancel }: FeedbackSuccesProps
                 status='success'
                 title={<Typography.Title level={3}>Отзыв успешно опубликован</Typography.Title>}
                 extra={[
-                    <Button
-                        type='primary'
-                        htmlType='submit'
-                        block
-                        size='large'
-                        onClick={() => dispatch(push('/feedbacks'))}
-                    >
+                    <Button type='primary' htmlType='submit' block size='large' onClick={onSubmit}>
                         Отлично
                     </Button>,
                 ]}

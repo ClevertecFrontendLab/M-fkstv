@@ -22,42 +22,46 @@ import { RegistrationSuccess } from '@pages/registration-success';
 import { push } from 'redux-first-history';
 import { HistoryRouter } from 'redux-first-history/rr6';
 import { Layout } from '../Layuot/Layout';
+import { PATH } from '@constants/endpoints';
+import { CalendarComp } from '@components/Calendar';
 
 export const App = () => {
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.user.token);
 
     useEffect(() => {
-        // const token = localStorage.getItem('token');
-        token ? dispatch(push('/main')) : dispatch(push('/auth'));
-    }, [dispatch]);
+        token || localStorage.getItem('token')
+            ? dispatch(push(PATH.MAIN))
+            : dispatch(push(PATH.AUTH));
+    }, [dispatch, token]);
 
     return (
         <HistoryRouter history={history}>
             <Routes>
-                <Route path='/' element={<MainPage />}>
-                    <Route path='main' element={<RootLayout />} />
-                    <Route path='feedbacks' element={<Feedback />} />
+                <Route path={PATH.INDEX} element={<MainPage />}>
+                    <Route path={PATH.MAIN} element={<RootLayout />} />
+                    <Route path={PATH.FEEDBAKS} element={<Feedback />} />
+                    <Route path={PATH.CALENDAR} element={<CalendarComp />} />
                 </Route>
 
-                <Route path='/' element={<Layout />}>
-                    <Route path='auth' element={<RegistrationPage mode='auth' />} />
-                    <Route path='auth/confirm-email' element={<ConfirmEmail />} />
-                    <Route path='auth/change-password' element={<PasswordChange />} />
+                <Route path={PATH.INDEX} element={<Layout />}>
+                    <Route path={PATH.AUTH} element={<RegistrationPage mode='auth' />} />
+                    <Route path={PATH.AUTH_CONFIRM_EMAIL} element={<ConfirmEmail />} />
+                    <Route path={PATH.AUTH_CHANGE_PASS} element={<PasswordChange />} />
                     <Route
-                        path='auth/registration'
+                        path={PATH.AUTH_REG}
                         element={<RegistrationPage mode='auth/registration' />}
                     />
 
-                    <Route path='result'>
-                        <Route path='success' element={<RegistrationSuccess />} />
-                        <Route path='success-change-password' element={<SuccesPassworChange />} />
-                        <Route path='error' element={<ResultError />} />
-                        <Route path='error-login' element={<LoginError />} />
-                        <Route path='error-user-exist' element={<ErrorUserExist />} />
-                        <Route path='error-check-email' element={<ErrorCheckEmail />} />
-                        <Route path='error-check-email-no-exist' element={<ErrorResponse />} />
-                        <Route path='error-change-password' element={<ErrorPasswordChange />} />
+                    <Route path={PATH.RESULT}>
+                        <Route path={PATH.SUCCESS} element={<RegistrationSuccess />} />
+                        <Route path={PATH.SUCCESS_PASS_CHANGE} element={<SuccesPassworChange />} />
+                        <Route path={PATH.ERROR} element={<ResultError />} />
+                        <Route path={PATH.ERROR_LOGIN} element={<LoginError />} />
+                        <Route path={PATH.ERROR_USER} element={<ErrorUserExist />} />
+                        <Route path={PATH.ERROR_EMAIL} element={<ErrorCheckEmail />} />
+                        <Route path={PATH.ERROR_EMAIL_NO_EXIST} element={<ErrorResponse />} />
+                        <Route path={PATH.ERROR_CHANGE_PASS} element={<ErrorPasswordChange />} />
                     </Route>
                 </Route>
             </Routes>

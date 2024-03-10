@@ -8,7 +8,6 @@ import { Content } from '@components/Content';
 export const RootLayout = () => {
     return (
         <Layout className='site-layout'>
-            <Header />
             <Content />
             <Footer />
         </Layout>

@@ -3,16 +3,18 @@ import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 
 import styles from './Footer.module.css';
 import { Link } from 'react-router-dom';
+import { PATH } from '@constants/endpoints';
 
 export const Footer = () => {
     return (
-        <Layout.Footer className={styles.footer}>
-            {/* <Button type='link' className={styles.reviews}>
-                Смотреть отзывы
-            </Button> */}
-
+        <Layout.Footer
+            style={{
+                backgroundColor: 'transparent',
+            }}
+            className={styles.footer}
+        >
             <Link
-                to={localStorage.getItem('token') ? '/feedbacks' : '/auth'}
+                to={localStorage.getItem('token') ? PATH.FEEDBAKS : PATH.AUTH}
                 className={styles.reviews}
                 data-test-id='see-reviews'
             >

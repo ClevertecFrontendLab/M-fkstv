@@ -3,6 +3,7 @@ import { Button, Result, Typography } from 'antd';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 import styles from './ErrrorResponse.module.css';
+import { PATH } from '@constants/endpoints';
 
 export const ErrorCheckEmail: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ export const ErrorCheckEmail: React.FC = () => {
                     htmlType='submit'
                     size='large'
                     data-test-id='check-back-button'
-                    onClick={() => dispatch(push('/auth'))}
+                    onClick={() => dispatch(push(PATH.AUTH))}
                 >
                     Повторить
                 </Button>,
