@@ -1,0 +1,23 @@
+.root {
+    position: relative;
+    flex-direction: column;
+    height: calc(100vh - (var(--header-height)));
+    width: 256px;
+    overflow-y: scroll;
+}
+.root::-webkit-scrollbar {
+    position: absolute;
+    width: 8px;
+    right: 10px;
+}
+.root::-webkit-scrollbar-track {
+    margin-right: -10px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.root::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.16);
+    border-radius: 99px;
+    width: 8px;
+}

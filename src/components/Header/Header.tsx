@@ -1,5 +1,3 @@
-import './Header.css';
-
 import { Flex, Spacer, useMediaQuery } from '@chakra-ui/react';
 
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
@@ -18,7 +16,7 @@ export const Header = () => {
                 w='100%'
                 h='80px'
                 p='16px'
-                backgroundColor=' #ffffd3'
+                backgroundColor='lime.50'
                 position={isMobile ? 'sticky' : 'relative'}
             >
                 <Logo />

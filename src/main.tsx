@@ -8,9 +8,11 @@ import { Provider } from 'react-redux';
 import App from '~/app/App.tsx';
 import { store } from '~/store/configure-store.ts';
 
+import { theme } from './theme';
+
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
             <Provider store={store}>
                 <App />
             </Provider>
