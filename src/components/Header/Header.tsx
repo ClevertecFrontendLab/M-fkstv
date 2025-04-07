@@ -14,7 +14,6 @@ export const Header = () => {
                 align='center'
                 justify='center'
                 w='100%'
-                h='80px'
                 p='16px'
                 backgroundColor='lime.50'
                 position={isMobile ? 'sticky' : 'relative'}

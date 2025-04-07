@@ -5,6 +5,7 @@ export const theme = extendTheme({
         lime: {
             50: '#ffffd3',
             100: '#eaffc7',
+            600: '#2db100',
         },
     },
     breakpoints: {

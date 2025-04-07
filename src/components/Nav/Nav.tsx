@@ -21,7 +21,7 @@ import styles from './nav.styles.module.css';
 import { navItems } from './navItems.js';
 
 export const Nav = () => (
-    <Flex className={styles.root}>
+    <Flex className={styles.root} display={{ base: 'none', md: 'flex' }}>
         <Accordion
             borderRadius='12px'
             boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
@@ -75,8 +75,13 @@ export const Nav = () => (
                                         top: '0',
                                         background: 'lime.100',
                                     }}
+                                    _last={{
+                                        borderBottom: 0,
+                                    }}
                                 >
-                                    <Link>{sub}</Link>
+                                    <Link>
+                                        <Text noOfLines={1}>{sub}</Text>
+                                    </Link>
                                 </ListItem>
                             ))}
                         </List>
