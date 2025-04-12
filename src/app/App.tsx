@@ -4,6 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react';
 
 import { Aside } from '~/components/Aside/Aside';
 import { Header } from '~/components/Header/Header';
+import { Main } from '~/components/Main/Main';
 import { Nav } from '~/components/Nav/Nav';
 
 // import { useGetPostsQuery } from '~/query/services/posts.ts';
@@ -13,20 +14,25 @@ function App() {
 
     return (
         <Grid
-            templateAreas={`"header header header"
+            templateAreas={{
+                md: `"header header header"
             "nav main aside"    
-            `}
-            gridTemplateRows='80px 1fr'
-            gridTemplateColumns='256px 1fr 208px'
+            `,
+                base: `"header
+                        main
+                        footer"`,
+            }}
         >
-            <GridItem area='header'>
+            <GridItem area='header' w='100%'>
                 <Header />
             </GridItem>
 
             <GridItem area='nav'>
                 <Nav />
             </GridItem>
-            <GridItem area='main'>Main</GridItem>
+            <GridItem area='main'>
+                <Main />
+            </GridItem>
             <GridItem area='aside'>
                 <Aside />
             </GridItem>

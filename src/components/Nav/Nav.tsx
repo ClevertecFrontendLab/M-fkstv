@@ -18,18 +18,27 @@ import {
 
 import LeftIcon from '../../assets/icons/left-icon.svg';
 import styles from './nav.styles.module.css';
-import { navItems } from './navItems.js';
+import { navItems } from './navItems.tsx';
 
 export const Nav = () => (
-    <Flex className={styles.root} display={{ base: 'none', md: 'flex' }}>
+    <Flex className={styles.root} hideBelow='md' minW='286px'>
         <Accordion
-            borderRadius='12px'
-            boxShadow='0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)'
+            borderBottomRightRadius='12px'
+            _hover={{
+                boxShadow:
+                    '0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)',
+            }}
             p='10px 16px 10px 10px'
             allowToggle
         >
             {navItems.map((i) => (
-                <AccordionItem key={i.title} borderTopWidth={0}>
+                <AccordionItem
+                    key={i.title}
+                    borderTopWidth={0}
+                    _last={{
+                        borderBottomWidth: 0,
+                    }}
+                >
                     <AccordionButton
                         p='12px 8px'
                         fontWeight={500}
@@ -55,7 +64,7 @@ export const Nav = () => (
                                     position='relative'
                                     key={i}
                                     p='12px 8px'
-                                    width='230px'
+                                    minWidth='230px'
                                     height='48px'
                                     _hover={{
                                         fontWeight: 700,
@@ -74,9 +83,6 @@ export const Nav = () => (
                                         left: '0',
                                         top: '0',
                                         background: 'lime.100',
-                                    }}
-                                    _last={{
-                                        borderBottom: 0,
                                     }}
                                 >
                                     <Link>

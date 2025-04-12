@@ -5,15 +5,15 @@ export const BreadCrumbs = () => (
     <>
         <Breadcrumb separator={<ChevronRightIcon color='gray.500' />}>
             <BreadcrumbItem>
-                <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+                <BreadcrumbLink href='#'>Главная</BreadcrumbLink>
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-                <BreadcrumbLink href='#'>Docs</BreadcrumbLink>
+                <BreadcrumbLink href='#'>Веганская кухня</BreadcrumbLink>
             </BreadcrumbItem>
 
             <BreadcrumbItem isCurrentPage>
-                <BreadcrumbLink href='#'>Breadcrumb</BreadcrumbLink>
+                <BreadcrumbLink href='#'>Вторые блюда</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
     </>

@@ -5,10 +5,14 @@ export const theme = extendTheme({
         lime: {
             50: '#ffffd3',
             100: '#eaffc7',
+            150: '#d7ff94',
             600: '#2db100',
+            800: '#134B00',
         },
+        black: '#000',
+        white: '#fff',
     },
     breakpoints: {
-        md: '769px',
+        md: '768px',
     },
 });

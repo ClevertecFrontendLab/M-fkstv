@@ -13,7 +13,6 @@ export const Header = () => {
                 data-test-id='header'
                 align='center'
                 justify='center'
-                w='100%'
                 p='16px'
                 backgroundColor='lime.50'
                 position={isMobile ? 'sticky' : 'relative'}

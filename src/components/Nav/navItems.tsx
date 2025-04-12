@@ -23,7 +23,7 @@ type navItemProps = {
 
 export const navItems: navItemProps[] = [
     {
-        icon: <Image src={Salad} />,
+        icon: <Image src={Salad} alt='салат' />,
         title: 'Салаты',
         subs: ['Мясные салаты', 'Рыбные салаты', 'Овощные салаты', 'Тёплые салаты'],
     },
