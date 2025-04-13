@@ -12,7 +12,7 @@ import { theme } from './theme';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} resetCSS>
             <Provider store={store}>
                 <App />
             </Provider>

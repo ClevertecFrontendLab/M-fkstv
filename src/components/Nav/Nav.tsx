@@ -17,18 +17,17 @@ import {
 } from '@chakra-ui/react';
 
 import LeftIcon from '../../assets/icons/left-icon.svg';
-import styles from './nav.styles.module.css';
 import { navItems } from './navItems.tsx';
 
 export const Nav = () => (
-    <Flex className={styles.root} hideBelow='md' minW='286px'>
+    <Flex direction='column' hideBelow='md'>
         <Accordion
             borderBottomRightRadius='12px'
             _hover={{
                 boxShadow:
                     '0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)',
             }}
-            p='10px 16px 10px 10px'
+            p='34px 0 10px 10px'
             allowToggle
         >
             {navItems.map((i) => (

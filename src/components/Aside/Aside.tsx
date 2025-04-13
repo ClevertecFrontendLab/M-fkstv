@@ -6,7 +6,7 @@ import Shared from '../../assets/icons/BsPeopleFill.svg';
 import GetRecipe from '../../assets/icons/getRecipe.svg';
 
 export const Aside = () => (
-    <Flex direction='column' h='100%'>
+    <Flex direction='column' h='100%' position='fixed' right='0' top='80px' w={200} pt='16px    '>
         <VStack spacing='24px'>
             <Button
                 variant='ghost'

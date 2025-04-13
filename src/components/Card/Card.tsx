@@ -1,35 +1,24 @@
 import {
-    Button,
-    ButtonGroup,
     Card as ChakraCard,
     CardBody,
     CardFooter,
     Heading,
-    HStack,
     Image,
     Stack,
-    Tag,
-    TagLabel,
     Text,
 } from '@chakra-ui/react';
+import { FC } from 'react';
 
-import Bookmark from '../../assets/icons/BsBookmarkHeart.svg';
-import Liked from '../../assets/icons/BsEmojiHeartEyes.svg';
-import FirstDishes from '../../assets/icons/firtsDishes.svg';
-import Test from '../../assets/images/TestImg.png';
+import { CardProps } from '~/types/types';
 
-type CardProps = {
-    bookmark?: number;
-    liked?: number;
-    title: string;
-    text: string;
-    badgeTitle: string;
-};
+import { CategoryTag } from '../CategoryTag/CategoryTag';
 
-export const Card = (card: CardProps) => (
+export const Card: FC<CardProps> = (card) => (
     <ChakraCard
         variant='outlined'
-        w='322px'
+        flexBasis={{ base: '158px', md: '277', xl: '322px' }}
+        flexShrink={0}
+        maxW='322px'
         border='1px solid rgba(0, 0, 0, 0.08)'
         _hover={{
             boxShadow:
@@ -44,54 +33,36 @@ export const Card = (card: CardProps) => (
                 w='100%'
                 h='230px'
                 m={0}
-                src={Test}
+                src={card.image}
             />
-            <Stack p='16px 24px'>
-                <Heading size='md' fontWeight={500} lineHeight='140%' letterSpacing='0.5px'>
+            <Stack p='12px'>
+                <Heading
+                    size='md'
+                    fontWeight={500}
+                    lineHeight='140%'
+                    letterSpacing='0.5px'
+                    noOfLines={1}
+                >
                     {card.title}
                 </Heading>
-                <Text fontWeight={400} fontSize='14px' lineHeight='143%' color='black'>
-                    {card.text}
+                <Text
+                    fontWeight={400}
+                    fontSize='14px'
+                    lineHeight='143%'
+                    color='black'
+                    noOfLines={3}
+                >
+                    {card.desc}
                 </Text>
             </Stack>
         </CardBody>
-        <CardFooter p='0 16px 20px 16px' m='0'>
-            <HStack w='100%' justify='space-between' p='10px 5px 0 5px'>
-                <Tag colorScheme='lime' p='4px 8px' gap='8px' m='0'>
-                    <Image src={FirstDishes} h='16px' w='16px' />
-                    <TagLabel fontWeight={400} fontSize='14px' lineHeight='143%' color='black'>
-                        {card.badgeTitle}
-                    </TagLabel>
-                </Tag>
-                <ButtonGroup m='0'>
-                    {card.bookmark && (
-                        <Button
-                            w='32px'
-                            h='24px'
-                            color='lime.600'
-                            fontSize='12px'
-                            fontWeight={600}
-                            backgroundColor='#fff'
-                            leftIcon={<Image src={Bookmark} />}
-                        >
-                            {card.bookmark}
-                        </Button>
-                    )}
-                    {card.liked && (
-                        <Button
-                            w='32px'
-                            h='24px'
-                            color='lime.600'
-                            fontSize='12px'
-                            fontWeight={600}
-                            backgroundColor='#fff'
-                            leftIcon={<Image src={Liked} />}
-                        >
-                            {card.bookmark}
-                        </Button>
-                    )}
-                </ButtonGroup>
-            </HStack>
+        <CardFooter p='12px' m='0'>
+            <CategoryTag
+                liked={card.liked}
+                category={card.category}
+                bookmark={card.bookmark}
+                color='lime.150'
+            />
         </CardFooter>
     </ChakraCard>
 );

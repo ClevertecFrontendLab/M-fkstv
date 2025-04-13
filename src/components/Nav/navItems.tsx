@@ -64,7 +64,7 @@ export const navItems: navItemProps[] = [
     },
     {
         icon: <Image src={Desserts} />,
-        title: 'Дессерты, выпечка',
+        title: 'Десерты, выпечка',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {

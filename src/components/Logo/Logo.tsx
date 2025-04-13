@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 
 export const Logo = () => (
-    <Box w='256px'>
+    <Box w='266px'>
         <svg
             width='136'
             height='32'
