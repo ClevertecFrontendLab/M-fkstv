@@ -1,5 +1,6 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Button, Grid, Heading, HStack } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
 import { sliderData } from '~/data/sliderData';
 
@@ -12,6 +13,8 @@ export const Jusiest = () => (
                 Самое сочное
             </Heading>
             <Button
+                as={Link}
+                to='/jusiest'
                 bg='lime.400'
                 size={{ base: 'md', '2xl': 'lg' }}
                 rightIcon={<ArrowForwardIcon />}

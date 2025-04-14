@@ -19,17 +19,20 @@ type navItemProps = {
     icon: ReactElement;
     title: string;
     subs: string[];
+    path: string;
 };
 
 export const navItems: navItemProps[] = [
     {
         icon: <Image src={Salad} alt='салат' />,
         title: 'Салаты',
+        path: 'salad',
         subs: ['Мясные салаты', 'Рыбные салаты', 'Овощные салаты', 'Тёплые салаты'],
     },
     {
         icon: <Image src={Snacks} />,
         title: 'Закуски',
+        path: 'snack',
         subs: [
             'Мясные закуски',
             'Рыбные закуски',
@@ -42,11 +45,13 @@ export const navItems: navItemProps[] = [
     {
         icon: <Image src={FirtsDishes} />,
         title: 'Первые блюда',
+        path: 'firts-dishes',
         subs: ['Мясные супы', 'Овощные супы', 'Бульоны', 'Холодные супы', 'Диетические супы'],
     },
     {
         icon: <Image src={SecondDishes} />,
         title: 'Вторые блюда',
+        path: 'SecondDishes',
         subs: [
             'Мясные',
             'Рыбные',
@@ -65,16 +70,19 @@ export const navItems: navItemProps[] = [
     {
         icon: <Image src={Desserts} />,
         title: 'Десерты, выпечка',
+        path: 'Desserts',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Grill} />,
         title: 'Блюда на гриле',
+        path: 'Grill',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Vegan} />,
         title: 'Веганская кухня',
+        path: 'vegan',
         subs: [
             'Закуски',
             'Первые блюда',
@@ -88,32 +96,38 @@ export const navItems: navItemProps[] = [
     },
     {
         icon: <Image src={Kids} />,
-        title: 'Детские блюда',
+        title: 'Kids',
+        path: 'snack',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Healthy} />,
         title: 'Лечебное питание',
+        path: 'Healthy',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Nationals} />,
         title: 'Национальные',
+        path: 'Souse',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Souse} />,
         title: 'Соусы',
+        path: 'Souse',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Drinks} />,
         title: 'Напитки',
+        path: 'Drinks',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
     {
         icon: <Image src={Preservs} />,
         title: 'Заготовки',
+        path: 'Preservs',
         subs: ['Блюдо 1', 'Блюдо 2', 'Блюдо 3', 'Блюдо 4', 'Блюдо 5'],
     },
 ];

@@ -15,6 +15,7 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
+import { NavLink } from 'react-router';
 
 import LeftIcon from '../../assets/icons/left-icon.svg';
 import { navItems } from './navItems.tsx';
@@ -38,24 +39,27 @@ export const Nav = () => (
                         borderBottomWidth: 0,
                     }}
                 >
-                    <AccordionButton
-                        p='12px 8px'
-                        fontWeight={500}
-                        _expanded={{
-                            bg: 'lime.100',
-                            fontWeight: 700,
-                            lineHeight: '150%',
-                        }}
-                        _hover={{
-                            backgroundColor: 'lime.50',
-                        }}
-                    >
-                        {i.icon}
-                        <Box as='span' flex='1' textAlign='left' ml='12px'>
-                            {i.title}
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
+                    <NavLink to={i.path}>
+                        <AccordionButton
+                            p='12px 8px'
+                            fontWeight={500}
+                            _expanded={{
+                                bg: 'lime.100',
+                                fontWeight: 700,
+                                lineHeight: '150%',
+                            }}
+                            _hover={{
+                                backgroundColor: 'lime.50',
+                            }}
+                        >
+                            {i.icon}
+                            <Box as='span' flex='1' textAlign='left' ml='12px'>
+                                {i.title}
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </NavLink>
+
                     <AccordionPanel pb={4}>
                         <List spacing={2}>
                             {i.subs.map((sub, i) => (
