@@ -17,17 +17,19 @@ import { FC } from 'react';
 import { CardProps } from '~/types/types';
 
 import Bookmark from '../../assets/icons/BsBookmarkHeart.svg';
-import rec from '../../assets/images/image.jpg';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 import { RecommendationTag } from '../RecomendationTag/RecomendationTag';
 
-const recommendation = {
-    name: 'Юлия Высоцкая',
-    imageURL: rec,
-};
-
 export const SectionCard: FC<CardProps> = (item) => (
-    <Card direction='row' variant='outline' overflow='hidden'>
+    <Card
+        direction='row'
+        variant='outline'
+        overflow='hidden'
+        _hover={{
+            boxShadow:
+                '0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)',
+        }}
+    >
         <Box
             position='absolute'
             bottom={2}
@@ -35,7 +37,7 @@ export const SectionCard: FC<CardProps> = (item) => (
             display={{ base: 'none', md: 'block' }}
             maxW={{ base: '158px', md: 'calc(50% - 16px)' }}
         >
-            {recommendation && <RecommendationTag {...recommendation} />}
+            {item.recomendations && <RecommendationTag {...item.recomendations} />}
         </Box>
         <Image
             src={item.image}
@@ -60,13 +62,7 @@ export const SectionCard: FC<CardProps> = (item) => (
                 >
                     {item.title}
                 </Heading>
-                <Text
-                    noOfLines={3}
-                    fontWeight={400}
-                    fontSize='14px'
-                    lineHeight='143%'
-                    display={{ base: 'box ', md: 'box' }}
-                >
+                <Text noOfLines={3} fontWeight={400} fontSize='14px' lineHeight='143%'>
                     {item.desc}
                 </Text>
             </CardBody>

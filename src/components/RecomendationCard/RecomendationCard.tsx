@@ -6,7 +6,13 @@ import { CardProps } from '~/types/types';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 
 export const RecomendationCard: FC<CardProps> = ({ title, desc, category, liked, bookmark }) => (
-    <Card variant='outline'>
+    <Card
+        variant='outline'
+        _hover={{
+            boxShadow:
+                '0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)',
+        }}
+    >
         <CardHeader p={{ base: 3, md: 4, '2xl': 6 }} pb={{ base: 0, md: 0, '2xl': 0 }}>
             <Heading
                 fontSize={{ base: 'md', md: 'xl' }}

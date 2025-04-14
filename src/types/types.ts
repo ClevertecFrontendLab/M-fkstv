@@ -5,6 +5,10 @@ export type CardProps = {
     desc: string;
     category: string;
     image: string;
+    recomendations?: {
+        name: string;
+        imageURL: string;
+    };
 };
 
 export type UserType = {

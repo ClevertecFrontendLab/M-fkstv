@@ -2,7 +2,7 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Button, Grid, Heading, HStack } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import { sliderData } from '~/data/sliderData';
+import { jusiestData } from '~/data/jusiestData';
 
 import { SectionCard } from '../SectionCard/SectionCard';
 
@@ -27,7 +27,7 @@ export const Jusiest = () => (
         </HStack>
         {/* templateColumns='repeat(2, 1fr)' */}
         <Grid gap='16px'>
-            {sliderData.map((item, index) => (
+            {jusiestData.map((item, index) => (
                 <SectionCard key={index} {...item} />
             ))}
         </Grid>

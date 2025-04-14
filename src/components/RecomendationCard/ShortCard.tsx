@@ -8,11 +8,16 @@ type ShortCardProps = {
 
 export const ShortCard: FC<ShortCardProps> = ({ title, image }) => (
     <HStack
+        w='100%'
         border='1px solid rgba(0, 0, 0, 0.08)'
         padding='12px'
         borderRadius='8px'
         alignItems='center'
         spacing='8px'
+        _hover={{
+            boxShadow:
+                '0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)',
+        }}
     >
         <Image src={image} />
         <Heading
