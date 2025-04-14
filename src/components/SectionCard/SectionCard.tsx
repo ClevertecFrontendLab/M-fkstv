@@ -17,10 +17,26 @@ import { FC } from 'react';
 import { CardProps } from '~/types/types';
 
 import Bookmark from '../../assets/icons/BsBookmarkHeart.svg';
+import rec from '../../assets/images/image.jpg';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
+import { RecommendationTag } from '../RecomendationTag/RecomendationTag';
+
+const recommendation = {
+    name: 'Юлия Высоцкая',
+    imageURL: rec,
+};
 
 export const SectionCard: FC<CardProps> = (item) => (
     <Card direction='row' variant='outline' overflow='hidden'>
+        <Box
+            position='absolute'
+            bottom={2}
+            left={2}
+            display={{ base: 'none', md: 'block' }}
+            maxW={{ base: '158px', md: 'calc(50% - 16px)' }}
+        >
+            {recommendation && <RecommendationTag {...recommendation} />}
+        </Box>
         <Image
             src={item.image}
             alt={item.title}

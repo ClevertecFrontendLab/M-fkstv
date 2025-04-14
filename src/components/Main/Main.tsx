@@ -1,6 +1,7 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import {
     Box,
+    Divider,
     FormControl,
     FormLabel,
     Heading,
@@ -18,6 +19,7 @@ import {
 import Filter from '../../assets/icons/filter.svg';
 import { Blogs } from '../Blogs/Blogs';
 import { Jusiest } from '../Jusiest/Jusiest';
+import { RecomendationSection } from '../RecomendationSection/RecomendationSection';
 import { Slider } from '../Slider/Slider';
 
 export const Main = () => (
@@ -84,5 +86,10 @@ export const Main = () => (
         <Slider />
         <Jusiest />
         <Blogs />
+        <Divider />
+        <RecomendationSection
+            title='Веганская кухня'
+            desc='Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.'
+        />
     </VStack>
 );

@@ -6,7 +6,7 @@ import { blogsData } from '~/data/blogsData';
 import { BlogCard } from '../BlogCard/BlogCard';
 
 export const Blogs = () => (
-    <Box w='100%' bg='lime.300' p='24px' gap='16px' borderRadius='16px'>
+    <Box w='100%' bg='lime.300' p='24px' gap='16px' borderRadius='16px' mb='24px'>
         <HStack justifyContent='space-between' mb='16px'>
             <Heading fontWeight={500} letterSpacing='0.9px' fontSize='30px' lineHeight='120%'>
                 Кулинарные блоги
