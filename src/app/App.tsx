@@ -1,33 +1,56 @@
-import './App.css';
+import { Grid, GridItem } from '@chakra-ui/react';
+import { Outlet } from 'react-router';
 
-import { useState } from 'react';
+import { Aside } from '~/components/Aside/Aside';
+import { Footer } from '~/components/Footer/Footer';
+import { Header } from '~/components/Header/Header';
+import { Nav } from '~/components/Nav/Nav';
 
-import reactLogo from '~/assets/react.svg';
-import { useGetPostsQuery } from '~/query/services/posts.ts';
+// import { useGetPostsQuery } from '~/query/services/posts.ts';
+import styles from './app.styles.module.css';
 
 function App() {
-    const [count, setCount] = useState(0);
-    const { data: _data, isLoading: _isLoading } = useGetPostsQuery();
+    // const { data: _data, isLoading: _isLoading } = useGetPostsQuery();
 
     return (
-        <>
-            <div>
-                <a href='https://vite.dev' target='_blank'>
-                    <img src='/vite.svg' className='logo' alt='Vite logo' />
-                </a>
-                <a href='https://react.dev' target='_blank'>
-                    <img src={reactLogo} className='logo react' alt='React logo' />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-        </>
+        <Grid
+            position='relative'
+            gridTemplateRows='80px 1fr'
+            templateAreas={{
+                md: `"header header header"
+            "nav main aside"    
+            `,
+                base: `"header
+                        main
+                        footer"`,
+            }}
+            gridTemplateColumns={{
+                md: '256px 1fr 256px',
+            }}
+        >
+            <GridItem area='header' w='100%' position='fixed' zIndex='2' data-test-id='header'>
+                <Header />
+            </GridItem>
+
+            <GridItem area='nav' className={styles.nav}>
+                <Nav />
+            </GridItem>
+            <GridItem
+                area='main'
+                overflow='hidden'
+                paddingInline='24px'
+                top='80px'
+                position='relative'
+            >
+                <Outlet />
+            </GridItem>
+            <GridItem area='aside' hideBelow='lg'>
+                <Aside />
+            </GridItem>
+            <GridItem hideFrom='md' area='footer'>
+                <Footer />
+            </GridItem>
+        </Grid>
     );
 }
 

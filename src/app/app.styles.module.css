@@ -1,0 +1,28 @@
+* {
+    scroll-behavior: smooth;
+}
+
+.nav {
+    position: fixed;
+    height: calc(100vh - (var(--header-height)));
+    width: 268px;
+    padding: 0 16px 10px 0;
+    top: 80px;
+    overflow-y: scroll;
+}
+.nav::-webkit-scrollbar {
+    position: absolute;
+    width: 8px;
+    right: 10px;
+}
+.nav::-webkit-scrollbar-track {
+    margin-right: -10px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.nav::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.16);
+    border-radius: 99px;
+    width: 8px;
+}
