@@ -43,6 +43,7 @@ export const Nav = () => (
                         <AccordionButton
                             p='12px 8px'
                             fontWeight={500}
+                            data-test-id={i.path}
                             _expanded={{
                                 bg: 'lime.100',
                                 fontWeight: 700,

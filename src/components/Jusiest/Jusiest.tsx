@@ -1,5 +1,5 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Grid, Heading, HStack } from '@chakra-ui/react';
+import { Box, Button, Center, Heading, HStack, SimpleGrid } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 import { jusiestData } from '~/data/jusiestData';
@@ -26,10 +26,28 @@ export const Jusiest = () => (
             </Button>
         </HStack>
         {/* templateColumns='repeat(2, 1fr)' */}
-        <Grid gap='16px'>
+        <SimpleGrid
+            columns={2}
+            gap={{ base: 3, md: 4 }}
+            maxWidth='100%'
+            minChildWidth={{ base: '300px', md: '450px' }}
+        >
             {jusiestData.map((item, index) => (
                 <SectionCard key={index} {...item} />
             ))}
-        </Grid>
+        </SimpleGrid>
+        <Center display={{ base: 'flex', md: 'none' }} mt={3}>
+            <Button
+                bg='lime.400'
+                size={{ base: 'md', '2xl': 'lg' }}
+                rightIcon={<ArrowForwardIcon />}
+                alignItems='center'
+                as={Link}
+                to='/jusiest'
+                data-test-id='juiciest-link-mobile'
+            >
+                Вся подборка
+            </Button>
+        </Center>
     </Box>
 );

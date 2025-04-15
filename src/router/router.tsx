@@ -8,7 +8,7 @@ import { VeganPage } from '~/pages/VeganPage/VeganPage';
 const enum path {
     INDEX = '/',
     JUSIEST = 'jusiest',
-    VEGAN = 'vegan',
+    VEGAN = 'vegan-cuisine',
 }
 
 export const router = (

@@ -81,8 +81,9 @@ export const navItems: navItemProps[] = [
     },
     {
         icon: <Image src={Vegan} />,
+
         title: 'Веганская кухня',
-        path: 'vegan',
+        path: 'vegan-cuisine',
         subs: [
             'Закуски',
             'Первые блюда',

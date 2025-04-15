@@ -35,7 +35,7 @@ export const HeadingSection = ({ title }: { title: string }) => (
                 size='lg'
                 icon={<Image src={Filter} />}
             />
-            <InputGroup>
+            <InputGroup size={{ base: 'sm', md: 'lg' }}>
                 <Input
                     fontWeight={400}
                     placeholder='Название или ингридиент ...'
@@ -44,12 +44,15 @@ export const HeadingSection = ({ title }: { title: string }) => (
                     variant='outline'
                     size='lg'
                 />
-                <InputRightElement w='48px' h='48px'>
+                <InputRightElement
+                    height={{ base: '32px', md: '48px' }}
+                    width={{ base: '32px', md: '48px' }}
+                >
                     <SearchIcon boxSize={5} />
                 </InputRightElement>
             </InputGroup>
         </HStack>
-        <HStack spacing='16px' mb='38px' pl='10px'>
+        <HStack spacing='16px' mb='38px' pl='10px' display={{ base: 'none', md: 'flex' }}>
             <FormControl
                 display='flex'
                 alignItems='center'

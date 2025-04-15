@@ -2,7 +2,7 @@ import {
     Box,
     Button,
     Center,
-    Grid,
+    SimpleGrid,
     Tab,
     TabList,
     TabPanel,
@@ -18,7 +18,6 @@ import { SectionCard } from '../SectionCard/SectionCard';
 export const VeganTabs = () => (
     <Tabs mb={{ base: 8, md: 10 }}>
         <Box
-            maxW='1020px'
             marginInline='auto'
             overflow='auto'
             sx={{
@@ -46,12 +45,16 @@ export const VeganTabs = () => (
         </Box>
         <TabPanels>
             {tabsData.map((_, index) => (
-                <TabPanel key={index} flexShrink={0}>
-                    <Grid gap={{ base: 3, md: 4 }} maxWidth='100%'>
+                <TabPanel key={index}>
+                    <SimpleGrid
+                        gap={{ base: 3, md: 4 }}
+                        // maxWidth='100%'
+                        columns={{ '2xl': 2, xl: 1 }}
+                    >
                         {vegansCardsData.map((item, index) => (
                             <SectionCard {...item} key={index} />
                         ))}
-                    </Grid>
+                    </SimpleGrid>
                     <Center mt={4}>
                         <Button bg='lime.400'>Загрузить ещё</Button>
                     </Center>

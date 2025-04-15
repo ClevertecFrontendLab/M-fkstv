@@ -2,6 +2,7 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
 import { Aside } from '~/components/Aside/Aside';
+import { Footer } from '~/components/Footer/Footer';
 import { Header } from '~/components/Header/Header';
 import { Nav } from '~/components/Nav/Nav';
 
@@ -27,7 +28,7 @@ function App() {
                 md: '256px 1fr 256px',
             }}
         >
-            <GridItem area='header' w='100%' position='fixed' zIndex='2'>
+            <GridItem area='header' w='100%' position='fixed' zIndex='2' data-test-id='header'>
                 <Header />
             </GridItem>
 
@@ -43,10 +44,12 @@ function App() {
             >
                 <Outlet />
             </GridItem>
-            <GridItem area='aside'>
+            <GridItem area='aside' hideBelow='lg'>
                 <Aside />
             </GridItem>
-            {/* <GridItem area='footer'>Footer</GridItem> */}
+            <GridItem hideFrom='md' area='footer'>
+                <Footer />
+            </GridItem>
         </Grid>
     );
 }

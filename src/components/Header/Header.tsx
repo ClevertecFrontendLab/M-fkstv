@@ -2,15 +2,15 @@ import { Flex, Spacer, useMediaQuery } from '@chakra-ui/react';
 
 import avatar from '../../assets/images/image.jpg';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
+import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import { Logo } from '../Logo/Logo';
 import { User } from '../User/User';
 
 export const Header = () => {
-    const [isMobile] = useMediaQuery('(max-width: 960px)');
+    const [isMobile] = useMediaQuery('(max-width: 768px)');
 
     return (
         <Flex
-            data-test-id='header'
             align='center'
             justify='center'
             p='16px'
@@ -20,12 +20,16 @@ export const Header = () => {
             <Logo />
             <BreadCrumbs />
             <Spacer />
-            <User
-                imageURL={avatar}
-                name='Екатерина Константинопольская'
-                email='@bake_and_pie'
-                margin='64px'
-            />
+            {!isMobile && (
+                <User
+                    imageURL={avatar}
+                    name='Екатерина Константинопольская'
+                    email='@bake_and_pie'
+                    margin='64px'
+                />
+            )}
+            {/* {isTablet && <StatsBlock />} */}
+            {isMobile && <BurgerMenu />}
         </Flex>
     );
 };

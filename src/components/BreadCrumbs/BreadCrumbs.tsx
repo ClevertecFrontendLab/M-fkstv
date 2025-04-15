@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router';
 
 export const BreadCrumbs = () => {
@@ -8,11 +8,11 @@ export const BreadCrumbs = () => {
     console.log('🚀 ~ BreadCrumbs ~ paths:', paths);
 
     const PATHS: Record<string, string> = {
-        vegan: 'Веганская кухня',
+        'vegan-cuisine': 'Веганская кухня',
         jusiest: 'Самое сочное',
     };
     return (
-        <>
+        <Box display={{ base: 'none', md: 'block' }}>
             <Breadcrumb separator={<ChevronRightIcon color='gray.500' />}>
                 <BreadcrumbItem>
                     <BreadcrumbLink as={Link} to='/'>
@@ -36,6 +36,6 @@ export const BreadCrumbs = () => {
                     );
                 })}
             </Breadcrumb>
-        </>
+        </Box>
     );
 };

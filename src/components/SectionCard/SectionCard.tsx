@@ -62,7 +62,13 @@ export const SectionCard: FC<CardProps> = (item) => (
                 >
                     {item.title}
                 </Heading>
-                <Text noOfLines={3} fontWeight={400} fontSize='14px' lineHeight='143%'>
+                <Text
+                    noOfLines={3}
+                    fontWeight={400}
+                    fontSize='14px'
+                    lineHeight='143%'
+                    display={{ base: 'none', lg: 'flex' }}
+                >
                     {item.desc}
                 </Text>
             </CardBody>
